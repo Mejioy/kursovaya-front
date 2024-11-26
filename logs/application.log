@@ -1,0 +1,95 @@
+27.11.2024 00:03:27.828 [main] INFO   r.k.l.MainApplication - Приложение запущено
+27.11.2024 00:03:28.717 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Соединение к БД получено
+27.11.2024 00:03:40.282 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:03:40.284 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:03:40.296 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:03:40.315 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:03:40.367 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:05:06.651 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор автомобилей выполнено успешно
+27.11.2024 00:05:06.651 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск автомобилей клиента выполнен успешно
+27.11.2024 00:05:15.750 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Сотрудник
+27.11.2024 00:05:21.481 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:05:21.481 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:05:21.491 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор сотрудников выполнено успешно
+27.11.2024 00:05:21.492 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск сотрудников выполнен успешно
+27.11.2024 00:05:21.495 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Администратор
+27.11.2024 00:15:10.181 [main] INFO   r.k.l.MainApplication - Приложение запущено
+27.11.2024 00:15:11.026 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Соединение к БД получено
+27.11.2024 00:15:20.785 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:15:20.786 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:15:20.800 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:15:20.800 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:15:20.849 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:15:48.664 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор автомобилей выполнено успешно
+27.11.2024 00:15:48.665 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск автомобилей клиента выполнен успешно
+27.11.2024 00:20:53.921 [main] INFO   r.k.l.MainApplication - Приложение запущено
+27.11.2024 00:20:54.773 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Соединение к БД получено
+27.11.2024 00:21:05.564 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:21:05.566 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:21:05.610 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Клиент
+27.11.2024 00:21:13.590 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Клиент
+27.11.2024 00:21:18.296 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:21:18.297 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:21:18.303 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:21:18.305 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:21:18.312 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:21:58.644 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор автомобилей выполнено успешно
+27.11.2024 00:21:58.644 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск автомобилей клиента выполнен успешно
+27.11.2024 00:22:03.953 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Сотрудник
+27.11.2024 00:22:07.667 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:22:07.668 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:22:07.676 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор сотрудников выполнено успешно
+27.11.2024 00:22:07.676 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск сотрудников выполнен успешно
+27.11.2024 00:22:07.682 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Администратор
+27.11.2024 00:22:19.895 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Услуга удалёна из БД
+27.11.2024 00:22:31.712 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Администратор
+27.11.2024 00:22:35.679 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:22:35.680 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:22:35.684 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:22:35.684 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:22:35.687 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:22:40.749 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Сотрудник
+27.11.2024 00:22:44.234 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:22:44.235 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:22:44.241 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор сотрудников выполнено успешно
+27.11.2024 00:22:44.241 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск сотрудников выполнен успешно
+27.11.2024 00:22:44.243 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Администратор
+27.11.2024 00:22:55.635 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Сотрудник удалён из БД
+27.11.2024 00:23:55.445 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Администратор
+27.11.2024 00:23:59.534 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:23:59.534 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:23:59.536 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Клиент
+27.11.2024 00:24:01.223 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Клиент
+27.11.2024 00:24:03.224 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Приложение остановлено
+27.11.2024 00:25:17.451 [main] INFO   r.k.l.MainApplication - Приложение запущено
+27.11.2024 00:25:17.844 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Соединение к БД получено
+27.11.2024 00:25:27.146 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:25:27.146 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:25:27.146 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:25:27.146 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:25:27.162 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:25:42.311 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Сотрудник
+27.11.2024 00:25:45.624 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:25:45.625 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:25:45.626 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор сотрудников выполнено успешно
+27.11.2024 00:25:45.627 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск сотрудников выполнен успешно
+27.11.2024 00:25:45.628 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Администратор
+27.11.2024 00:27:00.960 [main] INFO   r.k.l.MainApplication - Приложение запущено
+27.11.2024 00:27:01.335 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Соединение к БД получено
+27.11.2024 00:27:08.592 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:27:08.593 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:27:08.609 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Клиент
+27.11.2024 00:27:10.398 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Клиент
+27.11.2024 00:27:13.422 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор оказанных услуг выполнено успешно
+27.11.2024 00:27:13.422 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск оказанных услуг выполнен успешно
+27.11.2024 00:27:13.424 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор клиентов выполнено успешно
+27.11.2024 00:27:13.425 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск клиентов выполнен успешно
+27.11.2024 00:27:13.428 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Сотрудник
+27.11.2024 00:27:15.795 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Сотрудник
+27.11.2024 00:27:19.021 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор услуг выполнено успешно
+27.11.2024 00:27:19.021 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск услуг выполнен успешно
+27.11.2024 00:27:19.027 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Преобразование в набор сотрудников выполнено успешно
+27.11.2024 00:27:19.027 [JavaFX Application Thread] DEBUG  r.k.l.MainApplication - Поиск сотрудников выполнен успешно
+27.11.2024 00:27:19.030 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Начало работы под пользователем Администратор
+27.11.2024 00:29:20.735 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Окончание работы под пользователем Администратор
+27.11.2024 00:29:24.272 [JavaFX Application Thread] INFO   r.k.l.MainApplication - Приложение остановлено

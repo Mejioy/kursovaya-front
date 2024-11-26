@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kafpin.lr6_bzz.controllers.EmployerController">
+  <tabs>
+    <Tab text="%tp1">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tvProvidedServices" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <columns>
+                      <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="%name" />
+                      <TableColumn fx:id="tcClientFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%clientfio" />
+                        <TableColumn fx:id="tcAutomobile" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="150.0" text="%automobile" />
+                        <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%employerfio" />
+                        <TableColumn fx:id="tcPrice" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="%price" />
+                        <TableColumn fx:id="tcDatetime" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="120.0" text="%datetime" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <ButtonBar buttonMinWidth="20.0" maxHeight="40.0" prefHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                    <buttons>
+                        <Label maxHeight="18.0" maxWidth="18.0" minWidth="18.0" prefHeight="18.0" text="%from" />
+                        <DatePicker fx:id="dpFrom" minWidth="70.0" onAction="#onDataChanged" prefWidth="250.0" />
+                        <Label maxWidth="18.0" minWidth="18.0" prefHeight="18.0" text="%to" />
+                        <DatePicker fx:id="dpTo" minWidth="70.0" onAction="#onDataChanged" prefWidth="250.0" />
+                        <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onAddProvidedService" prefWidth="70.0" text="%add" />
+                      <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onEditProvidedService" prefWidth="70.0" text="%edit" />
+                        <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onRemoveProvidedService" prefWidth="70.0" text="%del" />
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+    <Tab text="%tp2">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TableView fx:id="tvClients" prefHeight="325.0" prefWidth="339.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <columns>
+                      <TableColumn fx:id="tcFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%fio" />
+                      <TableColumn fx:id="tcPhone" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="130.0" text="%phone" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                     <buttons>
+                        <Button mnemonicParsing="false" onAction="#onAddClient" text="%add" />
+                        <Button mnemonicParsing="false" onAction="#onEditClient" text="%edit" />
+                        <Button mnemonicParsing="false" onAction="#onRemoveClient" text="%del" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </content>
+    </Tab>
+      <Tab text="%tp3">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label text="%client" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="10.0" />
+                  <ComboBox fx:id="cbClients" onAction="#onClientSwitched" prefWidth="400.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <TableView fx:id="tvAutomobiles" prefHeight="325.0" prefWidth="339.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0">
+                     <columns>
+                        <TableColumn fx:id="tcMark" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="145.0" text="%mark" />
+                        <TableColumn fx:id="tcModel" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="145.0" text="%model" />
+                        <TableColumn fx:id="tcGosnumber" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="75.0" text="%gosnumber" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                     <buttons>
+                        <Button maxWidth="70.0" mnemonicParsing="false" onAction="#onAddAutomobile" text="%add" />
+                        <Button maxWidth="70.0" mnemonicParsing="false" onAction="#onEditAutomobile" text="%edit" />
+                        <Button maxWidth="70.0" mnemonicParsing="false" onAction="#onRemoveAutomobile" text="%del" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>
