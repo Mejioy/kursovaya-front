@@ -1,7 +1,4 @@
 package ru.kafpin.lr6_bzz.dao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.domains.Client;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
 import java.io.FileInputStream;
@@ -24,7 +21,6 @@ public class ClientDao implements Dao<Client, Long> {
     /** Поле свойство*/
     private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     /**
      * Конструктор – создание нового экземпляра
      * @see ClientDao#ClientDao()
@@ -56,10 +52,8 @@ public class ClientDao implements Dao<Client, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchclient"));
         return list;
     }
     /**
@@ -80,10 +74,8 @@ public class ClientDao implements Dao<Client, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("rsparseclient"));
         return list;
     }
     /**
@@ -101,10 +93,8 @@ public class ClientDao implements Dao<Client, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("addquerryclient"));
         return client;
     }
     /**
@@ -123,10 +113,8 @@ public class ClientDao implements Dao<Client, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("editquerryclient"));
         return client;
     }
     /**
@@ -140,10 +128,8 @@ public class ClientDao implements Dao<Client, Long> {
             statement.execute();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("deleteclient"));
     }
     /**
      * Функция поиска экземпляра {@link Client} в БД
@@ -159,7 +145,6 @@ public class ClientDao implements Dao<Client, Long> {
             return getEntity(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
         return null;
@@ -183,10 +168,8 @@ public class ClientDao implements Dao<Client, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-//        logger.debug(bundle.getString("searchsingleclient"));
         return client;
     }
 }

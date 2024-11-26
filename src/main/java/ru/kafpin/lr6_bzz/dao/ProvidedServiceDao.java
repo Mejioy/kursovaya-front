@@ -1,7 +1,4 @@
 package ru.kafpin.lr6_bzz.dao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.domains.ProvidedService;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
 import java.io.FileInputStream;
@@ -24,7 +21,6 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
     /** Поле свойство*/
     private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     /**
      * Конструктор – создание нового экземпляра
      * @see ProvidedServiceDao#ProvidedServiceDao()
@@ -56,10 +52,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchprovided"));
         return list;
     }
     /**
@@ -76,10 +70,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchprovided"));
         return list;
     }
     /**
@@ -101,10 +93,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("rsparseprovided"));
         return list;
     }
     /**
@@ -122,10 +112,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("addquerryprovided"));
         return providedService;
     }
     /**
@@ -144,10 +132,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("editquerryprovided"));
         return providedService;
     }
     /**
@@ -161,10 +147,8 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             statement.execute();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("deleteprovided"));
     }
     /**
      * Функция поиска экземпляра {@link ProvidedService} в БД

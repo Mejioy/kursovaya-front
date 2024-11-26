@@ -1,7 +1,4 @@
 package ru.kafpin.lr6_bzz.dao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.domains.Employer;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
 import java.io.FileInputStream;
@@ -22,7 +19,6 @@ public class EmployerDao implements Dao<Employer, Long>{
     /** Поле свойство*/
     private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("administrator", Locale.getDefault());
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     /**
      * Конструктор – создание нового экземпляра
      * @see EmployerDao#EmployerDao()
@@ -59,10 +55,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchemployer"));
         return list;
     }
     /**
@@ -88,10 +82,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("rsparseemployer"));
         return list;
     }
     /**
@@ -116,10 +108,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("addquerryemployer"));
         return employer;
     }
     /**
@@ -145,10 +135,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("editquerryemployer"));
         return employer;
     }
     /**
@@ -162,10 +150,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             statement.execute();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("deleteemployer"));
     }
     /**
      * Функция поиска экземпляра {@link Employer} в БД
@@ -181,7 +167,6 @@ public class EmployerDao implements Dao<Employer, Long>{
             return getEntity(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
         return null;
@@ -209,10 +194,8 @@ public class EmployerDao implements Dao<Employer, Long>{
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-//        logger.debug(bundle.getString("searchsingleemployer"));
         return employer;
     }
 }

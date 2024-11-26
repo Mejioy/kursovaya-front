@@ -13,8 +13,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.dao.EmployerDao;
 import ru.kafpin.lr6_bzz.dao.ServiceDao;
@@ -50,8 +48,6 @@ public class AdministratorController {
     private TableColumn<Employer, String> tcPhone;
     @FXML
     private TableView<Employer> tvEmployers;
-    private static LoggerFactory LoggerFactory;
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     public AdministratorController(){
         try {
             serviceDao = new ServiceDao();

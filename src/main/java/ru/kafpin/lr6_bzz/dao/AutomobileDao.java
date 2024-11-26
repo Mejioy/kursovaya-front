@@ -1,7 +1,4 @@
 package ru.kafpin.lr6_bzz.dao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.domains.Automobile;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
 import java.io.FileInputStream;
@@ -24,7 +21,6 @@ public class AutomobileDao implements Dao<Automobile, Long> {
     /** Поле свойство*/
     private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     /**
      * Конструктор – создание нового экземпляра
      * @see AutomobileDao#AutomobileDao()
@@ -56,10 +52,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchauto"));
         return list;
     }
     /**
@@ -76,10 +70,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchof"));
         return list;
     }
     /**
@@ -101,10 +93,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("rsparseauto"));
         return list;
     }
     /**
@@ -123,10 +113,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("addquerryauto"));
         return automobile;
     }
     /**
@@ -145,10 +133,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("editquerryauto"));
         return automobile;
     }
     /**
@@ -162,10 +148,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             statement.execute();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("deleteauto"));
     }
     /**
      * Функция поиска экземпляра {@link Automobile} в БД
@@ -181,7 +165,6 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             return getEntity(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
         return null;
@@ -205,10 +188,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-//        logger.debug(bundle.getString("searchsingleauto"));
         return automobile;
     }
 }

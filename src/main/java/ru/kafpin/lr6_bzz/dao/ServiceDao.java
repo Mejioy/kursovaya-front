@@ -1,7 +1,4 @@
 package ru.kafpin.lr6_bzz.dao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.domains.Service;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
 import java.io.FileInputStream;
@@ -25,7 +22,6 @@ public class ServiceDao implements Dao<Service, Long> {
     /** Поле свойство*/
     private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("administrator", Locale.getDefault());
-    private static final Logger logger = LoggerFactory.getLogger(MainApplication.class);
     /**
      * Конструктор – создание нового экземпляра
      * @see ServiceDao#ServiceDao()
@@ -57,10 +53,8 @@ public class ServiceDao implements Dao<Service, Long> {
             list = mapper(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("searchservice"));
         return list;
     }
     /**
@@ -82,10 +76,8 @@ public class ServiceDao implements Dao<Service, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("rsparseservice"));
         return list;
     }
     /**
@@ -106,10 +98,8 @@ public class ServiceDao implements Dao<Service, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("addquerryservice"));
         return service;
     }
     /**
@@ -131,10 +121,8 @@ public class ServiceDao implements Dao<Service, Long> {
             statement.executeUpdate();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("editquerryservice"));
         return service;
     }
     /**
@@ -148,10 +136,8 @@ public class ServiceDao implements Dao<Service, Long> {
             statement.execute();
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-        logger.debug(bundle.getString("deleteservice"));
     }
     /**
      * Функция поиска экземпляра {@link Service} в БД
@@ -167,7 +153,6 @@ public class ServiceDao implements Dao<Service, Long> {
             return getEntity(rs);
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
         return null;
@@ -191,10 +176,8 @@ public class ServiceDao implements Dao<Service, Long> {
             }
         }
         catch (SQLException e){
-            logger.error(bundle.getString("querryerror"),e);
             System.out.println(e.getMessage());
         }
-//        logger.debug(bundle.getString("searchsingleservice"));
         return service;
     }
 }
