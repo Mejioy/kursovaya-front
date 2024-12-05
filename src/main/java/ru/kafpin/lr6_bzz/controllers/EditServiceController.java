@@ -5,24 +5,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Data;
 import ru.kafpin.lr6_bzz.domains.Service;
 
 import java.util.ResourceBundle;
 
+@Data
 public class EditServiceController {
     private Service service;
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
-    }
     private ResourceBundle bundle;
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
-    public boolean isAction() {
-        return action;
-    }
     private boolean action=false;
     private Stage editStage;
+
     public void setService(Service service) {
         this.service = service;
         tName.setText(service.getName());
@@ -30,6 +24,7 @@ public class EditServiceController {
         if(service.getDescription()!=null)
             tDescription.setText(service.getDescription());
     }
+
     @FXML
     private TextArea tDescription;
     @FXML
@@ -40,6 +35,7 @@ public class EditServiceController {
     void onCancel(ActionEvent event) {
         editStage.close();
     }
+
     private void Error(String text){
         Alert alert;
         alert = new Alert(Alert.AlertType.ERROR);
@@ -58,7 +54,10 @@ public class EditServiceController {
         {
             service.setName(tName.getText().trim());
             service.setPrice(Integer.parseInt(tPrice.getText().trim()));
-            service.setDescription(tDescription.getText());
+            if(!tDescription.getText().trim().isEmpty())
+                service.setDescription(tDescription.getText());
+            else
+                service.setNullDescription();
             action=true;
             editStage.close();
         }

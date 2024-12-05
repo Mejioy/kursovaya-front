@@ -84,7 +84,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
         try {
             while (rs.next()){
                 list.add(new Automobile(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("mark"),
                         rs.getString("model"),
                         rs.getString("gosnumber"),
@@ -179,7 +179,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
         try {
             while (rs.next()){
                 automobile = new Automobile(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("mark"),
                         rs.getString("model"),
                         rs.getString("gosnumber"),

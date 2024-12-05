@@ -50,7 +50,7 @@ public class EmployerDao implements Dao<Employer, Long>{
             list = mapper(rs);
             for (Employer emp: list
                  ) {
-                if (emp.getAppartment()==0)
+                if (emp.getAppartment()==null)
                     emp.setNullAppartment();
             }
         }
@@ -69,7 +69,7 @@ public class EmployerDao implements Dao<Employer, Long>{
         try {
             while (rs.next()){
                 list.add(new Employer(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("surname"),
                         rs.getString("name"),
                         rs.getString("patronym"),
@@ -181,7 +181,7 @@ public class EmployerDao implements Dao<Employer, Long>{
         try {
             while (rs.next()){
                 employer = new Employer(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("surname"),
                         rs.getString("name"),
                         rs.getString("patronym"),

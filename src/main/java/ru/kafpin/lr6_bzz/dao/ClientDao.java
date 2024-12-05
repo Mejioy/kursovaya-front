@@ -66,7 +66,7 @@ public class ClientDao implements Dao<Client, Long> {
         try {
             while (rs.next()){
                 list.add(new Client(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("surname"),
                         rs.getString("name"),
                         rs.getString("patronym"),
@@ -159,7 +159,7 @@ public class ClientDao implements Dao<Client, Long> {
         try {
             while (rs.next()){
                 client = new Client(
-                        rs.getInt("id"),
+                        rs.getLong("id"),
                         rs.getString("surname"),
                         rs.getString("name"),
                         rs.getString("patronym"),

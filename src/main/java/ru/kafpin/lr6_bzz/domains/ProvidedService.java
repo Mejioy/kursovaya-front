@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ProvidedService {
 
-    private long id;
+    private Long id;
     private long service_id;
     private long employer_id;
     private long automobile_id;

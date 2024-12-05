@@ -1,14 +1,15 @@
 package ru.kafpin.lr6_bzz.domains;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Service {
 
-    private long id;
+    private Long id;
     private String name;
     private int price;
     private String description;
@@ -19,14 +20,15 @@ public class Service {
         this.price = price;
     }
 
-    public Service(long id, String name, int price, String description) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
+    public void setNullDescription(){
+        this.description = null;
     }
+
     @Override
     public String toString() {
-        return getName();
+        return "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description;
     }
 }
