@@ -86,7 +86,7 @@ public class EmployerController {
     void initialize() {
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
-        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
+//        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
         tcName.setCellValueFactory(s -> new SimpleStringProperty(serviceDao.findById(s.getValue().getService_id()).getName()));
         tcClientFIO.setCellValueFactory(s -> new SimpleStringProperty(
                 clientDao.findById(
