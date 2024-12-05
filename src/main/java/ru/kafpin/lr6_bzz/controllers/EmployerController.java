@@ -1,4 +1,5 @@
 package ru.kafpin.lr6_bzz.controllers;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.dao.*;
 import ru.kafpin.lr6_bzz.domains.*;
@@ -18,16 +20,17 @@ import javafx.scene.control.ComboBox;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+
 public class EmployerController {
+    @Setter
     private Stage employerStage;
-    public void setStage(Stage employerStage) {
-        this.employerStage = employerStage;
-    }
-    private AutomobileDao automobileDao;
-    private ClientDao clientDao;
-    private EmployerDao employerDao;
-    private ProvidedServiceDao providedServiceDao;
-    private ServiceDao serviceDao;
+
+    private final AutomobileDao automobileDao;
+    private final ClientDao clientDao;
+    private final EmployerDao employerDao;
+    private final ProvidedServiceDao providedServiceDao;
+    private final ServiceDao serviceDao;
+
     @FXML
     private TableView<ProvidedService> tvProvidedServices;
     @FXML
@@ -78,7 +81,7 @@ public class EmployerController {
     protected ObservableList<Automobile> automobiles = FXCollections.observableArrayList();
     protected ObservableList<Service> services = FXCollections.observableArrayList();
     protected ObservableList<Employer> employers = FXCollections.observableArrayList();
-    private ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
+    private final ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
     private Date dateFrom, dateTo;
     LocalDate localDatefrom = LocalDate.of(2020,1,1);
     LocalDate localDateto = LocalDate.now();
@@ -90,7 +93,7 @@ public class EmployerController {
         tcName.setCellValueFactory(s -> new SimpleStringProperty(serviceDao.findById(s.getValue().getService_id()).getName()));
         tcClientFIO.setCellValueFactory(s -> new SimpleStringProperty(
                 clientDao.findById(
-                        automobileDao.findById(s.getValue().getAutomobile_id()).getClient_id()).toString())
+                        automobileDao.findById(s.getValue().getAutomobile_id()).getClient().getId()).toString())
         );
         tcAutomobile.setCellValueFactory(s -> new SimpleStringProperty(
                 automobileDao.findById(s.getValue().getAutomobile_id()).toString()
@@ -135,10 +138,11 @@ public class EmployerController {
     void onAddAutomobile(ActionEvent event) {
         if(cbClients.getSelectionModel().getSelectedItem()!=null){
             Automobile automobile = new Automobile();
-            automobile.setClient_id(cbClients.getSelectionModel().getSelectedItem().getId());
+            automobile.setClient(cbClients.getSelectionModel().getSelectedItem());
             if(showAutomobileDialog(automobile)){
                 automobileDao.save(automobile);
-                automobiles.add(automobile);
+                automobiles.clear();
+                automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
                 tvAutomobiles.sort();
             }
         }
@@ -268,11 +272,11 @@ public class EmployerController {
             editProvidedServiceController.setProvidedService(providedService);
             editProvidedServiceController.setEditStage(addStage);
             editProvidedServiceController.setBundle(bundle);
-            editProvidedServiceController.setClientList(clients);
+            editProvidedServiceController.setClients(clients);
             services.addAll(serviceDao.findALl());
-            editProvidedServiceController.setServiceList(services);
+            editProvidedServiceController.setServices(services);
             employers.addAll(employerDao.findALl());
-            editProvidedServiceController.setEmployerList(employers);
+            editProvidedServiceController.setEmployers(employers);
             editProvidedServiceController.initialize();
             if(update)
                 editProvidedServiceController.update();

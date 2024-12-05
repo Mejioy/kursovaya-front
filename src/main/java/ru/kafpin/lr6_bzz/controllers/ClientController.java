@@ -7,13 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.dao.ServiceDao;
 import ru.kafpin.lr6_bzz.domains.Service;
 public class ClientController {
+    @Setter
     private Stage clientStage;
-    public void setStage(Stage clientStage) {
-        this.clientStage = clientStage;
-    }
     @FXML
     private TableColumn<Service, String> tcDescription;
     @FXML

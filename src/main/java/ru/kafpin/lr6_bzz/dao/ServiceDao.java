@@ -22,7 +22,6 @@ public class ServiceDao implements Dao<Service, Long> {
 
     @Override
     public Collection<Service> findALl() {
-        List<Service> list = null;
         try {
             url = new URL("http://127.0.0.1:8080/api/services");
             conn = (HttpURLConnection) url.openConnection();
@@ -36,7 +35,7 @@ public class ServiceDao implements Dao<Service, Long> {
         catch (IOException e) {
             System.out.println("URL/Connection error");
         }
-
+        List<Service> list = null;
         StringBuilder content = new StringBuilder();
         try(BufferedReader bufferedReader =
                     new BufferedReader(

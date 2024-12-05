@@ -19,7 +19,6 @@ public class EmployerDao implements Dao<Employer, Long>{
 
     @Override
     public Collection<Employer> findALl() {
-        List<Employer> list = null;
         try {
             url = new URL("http://127.0.0.1:8080/api/employers");
             conn = (HttpURLConnection) url.openConnection();
@@ -33,7 +32,7 @@ public class EmployerDao implements Dao<Employer, Long>{
         catch (IOException e) {
             System.out.println("URL/Connection error");
         }
-
+        List<Employer> list = null;
         StringBuilder content = new StringBuilder();
         try(BufferedReader bufferedReader =
                     new BufferedReader(

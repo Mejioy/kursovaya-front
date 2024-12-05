@@ -1,4 +1,5 @@
 package ru.kafpin.lr6_bzz.controllers;
+
 import ru.kafpin.lr6_bzz.MainApplication;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -55,27 +56,18 @@ public class MainController {
                         switch (viewName){
                 case "service":
                     ClientController clientController = loader.getController();
-                    clientController.setStage(addStage);
+                    clientController.setClientStage(addStage);
                     break;
                 case "employer":
                     EmployerController employerController = loader.getController();
-                    employerController.setStage(addStage);
+                    employerController.setEmployerStage(addStage);
                     break;
                 case "administrator":
                     AdministratorController administratorController = loader.getController();
-                    administratorController.setStage(addStage);
+                    administratorController.setAdministratorStage(addStage);
                     break;
             }
             addStage.showAndWait();
-            switch (viewName){
-                case "service":
-                    break;
-                case "employer":
-                    break;
-                case "administrator":
-                    break;
-            }
-
         } catch (IOException e) {
             System.out.println(bundle.getString("loaderror"));
         }

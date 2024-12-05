@@ -4,24 +4,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Data;
 import ru.kafpin.lr6_bzz.domains.Employer;
 
 import java.util.ResourceBundle;
 
+@Data
 public class EditEmployerController {
     private Employer employer;
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
-    }
     private ResourceBundle bundle;
-    public boolean isAction() {
-        return action;
-    }
     private boolean action=false;
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
     private Stage editStage;
+
     public void setEmployer(Employer employer) {
         this.employer = employer;
         tSurName.setText(employer.getSurName());
@@ -34,6 +28,7 @@ public class EditEmployerController {
         if(employer.getAppartment()!=null)
             tAppartment.setText(String.valueOf(employer.getAppartment()));
     }
+
     @FXML
     private TextField tAppartment;
     @FXML
@@ -54,6 +49,7 @@ public class EditEmployerController {
     void onCancel(ActionEvent event) {
         editStage.close();
     }
+
     private void Error(String text){
         Alert alert;
         alert = new Alert(Alert.AlertType.ERROR);
@@ -62,6 +58,7 @@ public class EditEmployerController {
         alert.setHeaderText(text);
         alert.showAndWait();
     }
+
     @FXML
     void onOK(ActionEvent event) {
         if (tHouse.getText()==null||tHouse.getText().trim().isEmpty() ||  Integer.parseInt(tHouse.getText()) <= 0)

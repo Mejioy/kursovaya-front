@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.dao.EmployerDao;
 import ru.kafpin.lr6_bzz.dao.ServiceDao;
@@ -22,14 +23,11 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-
 public class AdministratorController {
+    @Setter
     private Stage administratorStage;
-    public void setStage(Stage administratorStage) {
-        this.administratorStage = administratorStage;
-    }
-    private ServiceDao serviceDao;
-    private EmployerDao employerDao;
+    private final ServiceDao serviceDao;
+    private final EmployerDao employerDao;
     @FXML
     private TableColumn<Service, String> tcDescription;
     @FXML

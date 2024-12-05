@@ -1,4 +1,5 @@
 package ru.kafpin.lr6_bzz.controllers;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import lombok.Data;
 import ru.kafpin.lr6_bzz.domains.Service;
-
 import java.util.ResourceBundle;
 
 @Data
@@ -44,6 +44,7 @@ public class EditServiceController {
         alert.setHeaderText(text);
         alert.showAndWait();
     }
+
     @FXML
     void onOK(ActionEvent event) {
         if(tName.getText()==null || tName.getText().trim().isEmpty())

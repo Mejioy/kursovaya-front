@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import lombok.Data;
 import ru.kafpin.lr6_bzz.dao.AutomobileDao;
 import ru.kafpin.lr6_bzz.dao.ClientDao;
 import ru.kafpin.lr6_bzz.dao.EmployerDao;
@@ -13,40 +14,23 @@ import ru.kafpin.lr6_bzz.domains.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+@Data
 public class EditProvidedServiceController {
     private ProvidedService providedService;
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
-    }
     private ResourceBundle bundle;
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
-    public boolean isAction() {
-        return action;
-    }
     private boolean action=false;
     private Stage editStage;
-    public void setProvidedService(ProvidedService providedService) {
-        this.providedService = providedService;
-    }
-    public void setClientList(ObservableList<Client> clients){
-        this.clients = clients;
-    }
-    protected ObservableList<Client> clients = FXCollections.observableArrayList();
-    public void setEmployerList(ObservableList<Employer> employers){
-        this.employers = employers;
-    }
-    public void setServiceList(ObservableList<Service> services){
-        this.services = services;
-    }
-    protected ObservableList<Automobile> automobiles = FXCollections.observableArrayList();
-    protected ObservableList<Service> services = FXCollections.observableArrayList();
-    protected ObservableList<Employer> employers = FXCollections.observableArrayList();
+
+    private ObservableList<Client> clients = FXCollections.observableArrayList();
+    private ObservableList<Automobile> automobiles = FXCollections.observableArrayList();
+    private ObservableList<Service> services = FXCollections.observableArrayList();
+    private ObservableList<Employer> employers = FXCollections.observableArrayList();
+
     private ServiceDao serviceDao;
     private EmployerDao employerDao;
     private AutomobileDao automobileDao;
     private ClientDao clientDao;
+
     @FXML
     private ComboBox<Automobile> cbAutomobile;
     @FXML
@@ -74,7 +58,7 @@ public class EditProvidedServiceController {
     }
     @FXML
     void update(){
-        cbClient.getSelectionModel().select(clientDao.findById(automobileDao.findById(providedService.getAutomobile_id()).getClient_id()));
+        cbClient.getSelectionModel().select(clientDao.findById(automobileDao.findById(providedService.getAutomobile_id()).getClient().getId()));
         automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
         cbAutomobile.setItems(automobiles);
         cbAutomobile.getSelectionModel().select(automobileDao.findById(providedService.getAutomobile_id()));

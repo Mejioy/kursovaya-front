@@ -5,24 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Data;
 import ru.kafpin.lr6_bzz.domains.Client;
 
 import java.util.ResourceBundle;
 
+@Data
 public class EditClientController {
     private Client client;
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
-    }
     private ResourceBundle bundle;
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
-    public boolean isAction() {
-        return action;
-    }
     private boolean action=false;
     private Stage editStage;
+
     public void setClient(Client client) {
         this.client = client;
         tSurName.setText(client.getSurName());

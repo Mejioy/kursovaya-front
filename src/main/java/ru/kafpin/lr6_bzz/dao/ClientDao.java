@@ -1,20 +1,14 @@
 package ru.kafpin.lr6_bzz.dao;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import ru.kafpin.lr6_bzz.domains.Client;
-import ru.kafpin.lr6_bzz.domains.Employer;
-import ru.kafpin.lr6_bzz.domains.Service;
-import ru.kafpin.lr6_bzz.utils.DBHelper;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 
 @NoArgsConstructor
@@ -24,7 +18,6 @@ public class ClientDao implements Dao<Client, Long> {
     private HttpURLConnection conn;
     @Override
     public Collection<Client> findALl() {
-        List<Client> list = null;
         try {
             url = new URL("http://127.0.0.1:8080/api/clients");
             conn = (HttpURLConnection) url.openConnection();
@@ -38,7 +31,7 @@ public class ClientDao implements Dao<Client, Long> {
         catch (IOException e) {
             System.out.println("URL/Connection error");
         }
-
+        List<Client> list = null;
         StringBuilder content = new StringBuilder();
         try(BufferedReader bufferedReader =
                     new BufferedReader(

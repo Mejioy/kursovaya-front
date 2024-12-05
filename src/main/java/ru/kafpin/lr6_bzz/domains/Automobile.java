@@ -15,10 +15,19 @@ public class Automobile {
     private String mark;
     private String model;
     private String gosnumber;
-    private long client_id;
+    private Client client;
 
     @Override
     public String toString() {
-        return getMark() + ' ' + getModel() + ' ' + getGosnumber();
+        return "id=" + id +
+                ", mark='" + mark + '\'' +
+                ", model='" + model + '\'' +
+                ", gosnumber='" + gosnumber + '\'' +
+                ", client=" + client;
     }
+
+//    @Override
+//    public String toString() {
+//        return getMark() + ' ' + getModel() + ' ' + getGosnumber();
+//    }
 }

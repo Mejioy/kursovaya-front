@@ -4,23 +4,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import lombok.Data;
 import ru.kafpin.lr6_bzz.domains.Automobile;
 
 import java.util.ResourceBundle;
 
+@Data
 public class EditAutomobileController {
     private Automobile automobile;
-    public void setEditStage(Stage editStage) {
-        this.editStage = editStage;
-    }
     private Stage editStage;
     private ResourceBundle bundle;
-    public void setBundle(ResourceBundle bundle) {
-        this.bundle = bundle;
-    }
-    public boolean isAction() {
-        return action;
-    }
     private boolean action=false;
 
     public void setAutomobile(Automobile automobile) {
