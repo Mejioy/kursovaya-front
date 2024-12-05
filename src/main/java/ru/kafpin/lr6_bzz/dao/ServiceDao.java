@@ -83,7 +83,6 @@ public class ServiceDao implements Dao<Service, Long> {
     @Override
     public Service update(Service service) {
         String json = parseSingleServiceToJson(service);
-
         try {
             url = new URL("http://127.0.0.1:8080/api/services/"+service.getId());
             conn = (HttpURLConnection) url.openConnection();
@@ -117,7 +116,6 @@ public class ServiceDao implements Dao<Service, Long> {
 
     @Override
     public Service findById(Long id) {
-        Service service = null;
         try {
             url = new URL("http://127.0.0.1:8080/api/services/"+id);
             conn = (HttpURLConnection) url.openConnection();

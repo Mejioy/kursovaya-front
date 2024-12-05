@@ -34,8 +34,21 @@ public class Employer {
 
     @Override
     public String toString() {
-        return getSurName() + ' ' + getName() + ' ' + getPatronym();
+        return "id=" + id +
+                ", name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", patronym='" + patronym + '\'' +
+                ", phone='" + phone + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", house=" + house +
+                ", appartment=" + appartment;
     }
+
+    //    @Override
+//    public String toString() {
+//        return getSurName() + ' ' + getName() + ' ' + getPatronym();
+//    }
     public void setNullAppartment(){
         this.appartment = null;
     }

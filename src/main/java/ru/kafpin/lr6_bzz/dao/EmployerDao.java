@@ -1,201 +1,177 @@
 package ru.kafpin.lr6_bzz.dao;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import ru.kafpin.lr6_bzz.domains.Employer;
-import ru.kafpin.lr6_bzz.utils.DBHelper;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-/**
- * Класс EmployerDao со свойством property.
- * <p>
- *     Данный класс разработан как реализация интерфейса Dao для сущности Сотрудник.
- * </p>
- * @author Ярослав Кокурин
- * @version 1.0
- */
+@NoArgsConstructor
 public class EmployerDao implements Dao<Employer, Long>{
-    /** Поле свойство*/
-    private Properties property;
-    private ResourceBundle bundle = ResourceBundle.getBundle("administrator", Locale.getDefault());
-    /**
-     * Конструктор – создание нового экземпляра
-     * @see EmployerDao#EmployerDao()
-     */
-    public EmployerDao() throws Exception {
-        URL url = this.getClass()
-                .getResource("/ru/kafpin/lr6_bzz/employer.properties");
-        this.property = new Properties();
-        FileInputStream fis = null;
-        if(url==null)
-            throw new Exception();
-        try {
-            fis = new FileInputStream(url.getFile());
-            property.load(fis);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    /**
-     * Функция получения коллекции {@link Employer} из БД
-     * @return возвращает коллекцию {@link Employer}
-     */
+    private URL url;
+    private final ObjectMapper mapper = new ObjectMapper();
+    private HttpURLConnection conn;
+
     @Override
     public Collection<Employer> findALl() {
         List<Employer> list = null;
-        ResultSet rs = null;
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.select"))){
-            rs = statement.executeQuery();
-            list = mapper(rs);
-            for (Employer emp: list
-                 ) {
-                if (emp.getAppartment()==null)
-                    emp.setNullAppartment();
-            }
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return list;
-    }
-    /**
-     * Функция преобразования результирующего набора(выборки) в коллекцию {@link Employer}
-     * @param rs результирующий набор
-     * @return возвращает коллекцию {@link Employer}
-     */
-    protected List<Employer> mapper(ResultSet rs){
-        List<Employer> list = new ArrayList<>();
         try {
-            while (rs.next()){
-                list.add(new Employer(
-                        rs.getLong("id"),
-                        rs.getString("surname"),
-                        rs.getString("name"),
-                        rs.getString("patronym"),
-                        rs.getString("phone"),
-                        rs.getString("city"),
-                        rs.getString("street"),
-                        rs.getInt("house"),
-                        rs.getInt("appartment")
-                        ));
+            url = new URL("http://127.0.0.1:8080/api/employers");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
             }
         }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+
+        StringBuilder content = new StringBuilder();
+        try(BufferedReader bufferedReader =
+                    new BufferedReader(
+                            new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))){
+            String line;
+            while((line = bufferedReader.readLine()) != null) {
+                content.append(line);
+                content.append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("bufferReader error");
+        }
+
+        try {
+            list = mapper.reader()
+                    .forType(new TypeReference<List<Employer>>() {})
+                    .readValue(content.toString());
+        } catch (JsonProcessingException e) {
+            System.out.println(e);
+            System.out.println("Error of parsing");
         }
         return list;
     }
-    /**
-     * Функция добавления {@link Employer} в БД
-     * @param employer сущность {@link Employer}
-     * @return возвращает сущность {@link Employer}
-     */
+
     @Override
     public Employer save(Employer employer) {
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.insert"))){
-            statement.setString(1,employer.getSurName());
-            statement.setString(2,employer.getName());
-            statement.setString(3,employer.getPatronym());
-            statement.setString(4,employer.getPhone());
-            statement.setString(5,employer.getCity());
-            statement.setString(6,employer.getStreet());
-            statement.setInt(7,employer.getHouse());
-            if(employer.getAppartment()!=null&&employer.getAppartment()>0)
-                statement.setInt(8,employer.getAppartment());
-            else
-                statement.setNull(8,Types.INTEGER);
-            statement.executeUpdate();
+        String json = parseSingleEmployerToJson(employer);
+
+        try {
+            url = new URL("http://127.0.0.1:8080/api/employers/add");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
         }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
         }
-        return employer;
+        writeResponseToJson(json);
+        return parseJsonToSingleEmployer();
     }
-    /**
-     * Функция изменения {@link Employer} в БД
-     * @param employer сущность {@link Employer}
-     * @return возвращает сущность {@link Employer}
-     */
+
     @Override
     public Employer update(Employer employer) {
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.update"))){
-            statement.setString(1,employer.getSurName());
-            statement.setString(2,employer.getName());
-            statement.setString(3,employer.getPatronym());
-            statement.setString(4,employer.getPhone());
-            statement.setString(5,employer.getCity());
-            statement.setString(6,employer.getStreet());
-            statement.setInt(7,employer.getHouse());
-            if(employer.getAppartment()!=null&&employer.getAppartment()>0)
-                statement.setInt(8,employer.getAppartment());
-            else
-                statement.setNull(8, Types.INTEGER);
-            statement.setLong(9,employer.getId());
-            statement.executeUpdate();
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return employer;
-    }
-    /**
-     * Функция удаления записи о Сотруднике из БД
-     * @param aLong идентификатор Сотрудника
-     */
-    @Override
-    public void deleteById(Long aLong) {
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.delete"))){
-            statement.setLong(1,aLong);
-            statement.execute();
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-    }
-    /**
-     * Функция поиска экземпляра {@link Employer} в БД
-     * @param aLong идентификатор Сотрудника
-     * @return возвращает сущность {@link Employer}
-     */
-    @Override
-    public Employer findById(Long aLong) {
-        ResultSet rs = null;
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.findbyid"))){
-            statement.setLong(1,aLong);
-            rs = statement.executeQuery();
-            return getEntity(rs);
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-    /**
-     * Функция получения экземпляра {@link Employer} из БД
-     * @param rs результирующий набор
-     * @return возвращает сущность {@link Employer}
-     */
-    protected Employer getEntity(ResultSet rs){
-        Employer employer = null;
+        String json = parseSingleEmployerToJson(employer);
         try {
-            while (rs.next()){
-                employer = new Employer(
-                        rs.getLong("id"),
-                        rs.getString("surname"),
-                        rs.getString("name"),
-                        rs.getString("patronym"),
-                        rs.getString("phone"),
-                        rs.getString("city"),
-                        rs.getString("street"),
-                        rs.getInt("house"),
-                        rs.getInt("appartment")
-                );
+            url = new URL("http://127.0.0.1:8080/api/employers/"+employer.getId());
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        writeResponseToJson(json);
+        return parseJsonToSingleEmployer();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/employers/"+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = " + conn.getResponseCode());
             }
         }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
         }
+    }
+
+    @Override
+    public Employer findById(Long id) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/employers/"+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToSingleEmployer();
+    }
+
+    private void writeResponseToJson(String json){
+        try(OutputStream os = conn.getOutputStream()) {
+            byte[] input = json.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        } catch (IOException e) {
+            System.out.println("error of write outputstream");
+        }
+    }
+    private String parseSingleEmployerToJson(Employer employer){
+        String json = null;
+        try {
+            json = mapper.writeValueAsString(employer);
+        } catch (JsonProcessingException e) {
+            System.out.println(e);
+            System.out.println("Error of write in json");
+        }
+        return json;
+    }
+    private Employer parseJsonToSingleEmployer(){
+        Employer employer = null;
+        StringBuilder response = new StringBuilder();
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))){
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine);
+                response.append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("bufferReader error");
+        }
+
+        System.out.println("response "+response);
+
+        try {
+            employer = mapper.reader()
+                    .forType(Employer.class)
+                    .readValue(response.toString());
+        } catch (JsonProcessingException e) {
+            System.out.println(e);
+            System.out.println("Error of parsing");
+        }
+
+        System.out.println("response "+employer);
         return employer;
     }
 }
