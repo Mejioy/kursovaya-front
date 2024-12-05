@@ -33,8 +33,6 @@ public class AdministratorController {
     @FXML
     private TableColumn<Service, String> tcDescription;
     @FXML
-    private TableColumn<Service, Integer> tcDuration;
-    @FXML
     private TableColumn<Service, String> tcName;
     @FXML
     private TableColumn<Service, Integer> tcPrice;
@@ -63,12 +61,10 @@ public class AdministratorController {
     void initialize() {
         services.addAll(serviceDao.findALl());
         tcName.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getName()));
-        tcDuration.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getDuration()));
         tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getPrice()));
         tcDescription.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getDescription()));
         tvServices.setItems(services);
         tvServices.getSortOrder().add(tcName);
-        tvServices.getSortOrder().add(tcDuration);
         tvServices.getSortOrder().add(tcPrice);
         employers.addAll(employerDao.findALl());
         tcFIO.setCellValueFactory(s -> new SimpleStringProperty(
@@ -193,7 +189,7 @@ public class AdministratorController {
         if(employer!=null){
             if(showRemoveDialog("employer")){
                 tvEmployers.getItems().remove(tvEmployers.getSelectionModel().getSelectedIndex());
-                employerDao.deleteById(employer.getEmployerID());
+                employerDao.deleteById(employer.getId());
                 tvEmployers.sort();
             }
         }
@@ -206,7 +202,7 @@ public class AdministratorController {
         if(service!=null){
             if(showRemoveDialog("service")){
                 tvServices.getItems().remove(tvServices.getSelectionModel().getSelectedIndex());
-                serviceDao.deleteById(service.getServiceID());
+                serviceDao.deleteById(service.getId());
                 tvServices.sort();
             }
         }

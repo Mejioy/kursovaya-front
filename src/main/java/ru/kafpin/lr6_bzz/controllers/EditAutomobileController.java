@@ -6,7 +6,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.kafpin.lr6_bzz.domains.Automobile;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class EditAutomobileController {

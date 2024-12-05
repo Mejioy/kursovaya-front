@@ -109,7 +109,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             statement.setString(1,automobile.getMark());
             statement.setString(2,automobile.getModel());
             statement.setString(3,automobile.getGosnumber());
-            statement.setLong(4,automobile.getIdclient());
+            statement.setLong(4,automobile.getClient_id());
             statement.executeUpdate();
         }
         catch (SQLException e){
@@ -128,8 +128,8 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             statement.setString(1,automobile.getMark());
             statement.setString(2,automobile.getModel());
             statement.setString(3,automobile.getGosnumber());
-            statement.setLong(4,automobile.getIdclient());
-            statement.setLong(5,automobile.getAutomobileID());
+            statement.setLong(4,automobile.getClient_id());
+            statement.setLong(5,automobile.getId());
             statement.executeUpdate();
         }
         catch (SQLException e){

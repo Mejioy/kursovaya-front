@@ -109,7 +109,7 @@ public class ClientDao implements Dao<Client, Long> {
             statement.setString(2,client.getName());
             statement.setString(3,client.getPatronym());
             statement.setString(4,client.getPhone());
-            statement.setLong(5,client.getClientID());
+            statement.setLong(5,client.getId());
             statement.executeUpdate();
         }
         catch (SQLException e){

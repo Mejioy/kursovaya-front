@@ -17,8 +17,6 @@ public class ClientController {
     @FXML
     private TableColumn<Service, String> tcDescription;
     @FXML
-    private TableColumn<Service, Integer> tcDuration;
-    @FXML
     private TableColumn<Service, String> tcName;
     @FXML
     private TableColumn<Service, Integer> tcPrice;
@@ -37,12 +35,10 @@ public class ClientController {
     void initialize() {
         services.addAll(dao.findALl());
         tcName.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getName()));
-        tcDuration.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getDuration()));
         tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getPrice()));
         tcDescription.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getDescription()));
         tvServices.setItems(services);
         tvServices.getSortOrder().add(tcName);
-        tvServices.getSortOrder().add(tcDuration);
         tvServices.getSortOrder().add(tcPrice);
     }
 }

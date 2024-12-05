@@ -86,41 +86,40 @@ public class EmployerController {
     void initialize() {
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
-        dateFrom = new Date(java.sql.Date.valueOf(localDatefrom).getTime());
-        dateTo = new Date(java.sql.Date.valueOf(localDateto).getTime());
-        providedServices.addAll(providedServiceDao.findALlFromTo(dateFrom,dateTo));
-        tcName.setCellValueFactory(s -> new SimpleStringProperty(serviceDao.findById(s.getValue().getIdservice()).getName()));
+        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
+        tcName.setCellValueFactory(s -> new SimpleStringProperty(serviceDao.findById(s.getValue().getService_id()).getName()));
         tcClientFIO.setCellValueFactory(s -> new SimpleStringProperty(
-                clientDao.findById(automobileDao.findById(s.getValue().getIdautomobile()).getIdclient()).toString()
-        ));
+                clientDao.findById(
+                        automobileDao.findById(s.getValue().getAutomobile_id()).getClient_id()).toString())
+        );
         tcAutomobile.setCellValueFactory(s -> new SimpleStringProperty(
-                automobileDao.findById(s.getValue().getIdautomobile()).toString()
+                automobileDao.findById(s.getValue().getAutomobile_id()).toString()
         ));
         tcEmployerFIO.setCellValueFactory(s -> new SimpleStringProperty(
-                employerDao.findById(s.getValue().getIdemployer()).toString()
+                employerDao.findById(s.getValue().getEmployer_id()).toString()
         ));
-        tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(serviceDao.findById(s.getValue().getIdservice()).getPrice()));
-        tcDatetime.setCellValueFactory(s -> new SimpleObjectProperty<Date>(s.getValue().getDatetime()));
+        tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(serviceDao.findById(s.getValue().getService_id()).getPrice()));
+        tcDatetime.setCellValueFactory(s -> new SimpleObjectProperty<Date>(s.getValue().getSqlDate()));
         tvProvidedServices.setItems(providedServices);
         tvProvidedServices.getSortOrder().add(tcDatetime);
 
-            clients.addAll(clientDao.findALl());
-            tcFIO.setCellValueFactory(s -> new SimpleStringProperty(
-                    s.getValue().toString()));
-            tcPhone.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getPhone()));
-            tvClients.setItems(clients);
-            tvClients.getSortOrder().add(tcFIO);
-            tvClients.getSortOrder().add(tcPhone);
-            cbClients.setItems(clients);
+        clients.addAll(clientDao.findALl());
+        tcFIO.setCellValueFactory(s -> new SimpleStringProperty(
+            s.getValue().toString()));
+        tcPhone.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getPhone()));
+        tvClients.setItems(clients);
+        tvClients.getSortOrder().add(tcFIO);
+        tvClients.getSortOrder().add(tcPhone);
+        cbClients.setItems(clients);
     }
     @FXML
     void onDataChanged(ActionEvent event) {
         localDatefrom = dpFrom.getValue();
         localDateto = dpTo.getValue();
-        dateFrom = new Date(java.sql.Date.valueOf(localDatefrom).getTime());
-        dateTo = new Date(java.sql.Date.valueOf(localDateto).getTime());
+//        dateFrom = new Date(java.sql.Date.valueOf(localDatefrom).getTime());
+//        dateTo = new Date(java.sql.Date.valueOf(localDateto).getTime());
         providedServices.clear();
-        providedServices.addAll(providedServiceDao.findALlFromTo(dateFrom,dateTo));
+        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
         tvProvidedServices.setItems(providedServices);
         tvProvidedServices.sort();
     }
@@ -135,7 +134,8 @@ public class EmployerController {
     @FXML
     void onAddAutomobile(ActionEvent event) {
         if(cbClients.getSelectionModel().getSelectedItem()!=null){
-            Automobile automobile = new Automobile(cbClients.getSelectionModel().getSelectedItem().getClientID());
+            Automobile automobile = new Automobile();
+            automobile.setClient_id(cbClients.getSelectionModel().getSelectedItem().getId());
             if(showAutomobileDialog(automobile)){
                 automobileDao.save(automobile);
                 automobiles.add(automobile);
@@ -157,11 +157,12 @@ public class EmployerController {
     }
     @FXML
     void onAddProvidedService(ActionEvent event) {
-        ProvidedService providedService = new ProvidedService(new Date());
+//        ProvidedService providedService = new ProvidedService(new Date());
+        ProvidedService providedService = new ProvidedService();
         if(showProvidedServiceDialog(providedService,false)){
             providedServiceDao.save(providedService);
             providedServices.clear();
-            providedServices.addAll(providedServiceDao.findALlFromTo(dateFrom,dateTo));
+            providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
             tvProvidedServices.sort();
         }
     }
@@ -173,7 +174,7 @@ public class EmployerController {
                 if(showAutomobileDialog(automobile)){
                 automobileDao.update(automobile);            }
                 automobiles.clear();
-                automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getClientID()));
+                automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
                 tvAutomobiles.sort();
             }
             else
@@ -203,7 +204,7 @@ public class EmployerController {
             if(showProvidedServiceDialog(providedService,true)){
                 providedServiceDao.update(providedService);
                 providedServices.clear();
-                providedServices.addAll(providedServiceDao.findALlFromTo(dateFrom,dateTo));
+                providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
                 tvProvidedServices.sort();
             }
         }
@@ -217,7 +218,7 @@ public class EmployerController {
             if(automobile!=null){
                 if(showRemoveDialog("automobile")){
                     tvAutomobiles.getItems().remove(tvAutomobiles.getSelectionModel().getSelectedIndex());
-                    automobileDao.deleteById(automobile.getAutomobileID());
+                    automobileDao.deleteById(automobile.getId());
                     tvAutomobiles.sort();
                 }
             }
@@ -233,7 +234,7 @@ public class EmployerController {
         if(client!=null){
             if(showRemoveDialog("client")){
                 tvClients.getItems().remove(tvClients.getSelectionModel().getSelectedIndex());
-                clientDao.deleteById(client.getClientID());
+                clientDao.deleteById(client.getId());
                 tvClients.sort();
             }
         }
@@ -246,7 +247,7 @@ public class EmployerController {
         if (providedService!=null){
             if(showRemoveDialog("providedservice")){
                 tvProvidedServices.getItems().remove(tvProvidedServices.getSelectionModel().getSelectedIndex());
-                providedServiceDao.deleteById(providedService.getProvidedServiceID());
+                providedServiceDao.deleteById(providedService.getId());
                 tvProvidedServices.sort();
             }
         }
@@ -328,7 +329,7 @@ public class EmployerController {
     void onClientSwitched(ActionEvent event) {
         if(cbClients.getSelectionModel().getSelectedItem()!=null){
             automobiles.clear();
-            automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getClientID()));
+            automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
             tcMark.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getMark()));
             tcModel.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getModel()));
             tcGosnumber.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getGosnumber()));

@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 /**
  * Класс ProvidedServiceDao со свойством property.
@@ -60,12 +61,12 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
      * Функция получения коллекции {@link ProvidedService} из БД
      * @return возвращает коллекцию {@link ProvidedService}
      */
-    public Collection<ProvidedService> findALlFromTo(java.util.Date from, java.util.Date to) {
+    public Collection<ProvidedService> findALlFromTo(LocalDate from, LocalDate to) {
         List<ProvidedService> list = null;
         ResultSet rs = null;
         try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.selectFromAndTo"))){
-            statement.setDate(1, new Date(from.getTime()));
-            statement.setDate(2,new Date(to.getTime()));
+            statement.setDate(1, java.sql.Date.valueOf(from));
+            statement.setDate(2, java.sql.Date.valueOf(to));
             rs = statement.executeQuery();
             list = mapper(rs);
         }
@@ -88,7 +89,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
                         rs.getInt("idservice"),
                         rs.getInt("idemployee"),
                         rs.getInt("idautomobile"),
-                        rs.getDate("datatime")
+                        rs.getDate("datatime").toLocalDate()
                 ));
             }
         }
@@ -105,10 +106,10 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
     @Override
     public ProvidedService save(ProvidedService providedService) {
             try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.insert"))){
-                statement.setLong(1,providedService.getIdservice());
-                statement.setLong(2,providedService.getIdemployer());
-                statement.setLong(3,providedService.getIdautomobile());
-                statement.setDate(4,providedService.getSqlDateTime());
+                statement.setLong(1,providedService.getService_id());
+                statement.setLong(2,providedService.getEmployer_id());
+                statement.setLong(3,providedService.getAutomobile_id());
+                statement.setDate(4,providedService.getSqlDate());
             statement.executeUpdate();
         }
         catch (SQLException e){
@@ -124,11 +125,11 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
     @Override
     public ProvidedService update(ProvidedService providedService) {
         try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.update"))){
-            statement.setLong(1,providedService.getIdservice());
-            statement.setLong(2,providedService.getIdemployer());
-            statement.setLong(3,providedService.getIdautomobile());
-            statement.setDate(4,providedService.getSqlDateTime());
-            statement.setLong(5,providedService.getProvidedServiceID());
+            statement.setLong(1,providedService.getService_id());
+            statement.setLong(2,providedService.getEmployer_id());
+            statement.setLong(3,providedService.getAutomobile_id());
+            statement.setDate(4,providedService.getSqlDate());
+            statement.setLong(5,providedService.getId());
             statement.executeUpdate();
         }
         catch (SQLException e){

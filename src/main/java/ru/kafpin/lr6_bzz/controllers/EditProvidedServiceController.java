@@ -74,19 +74,19 @@ public class EditProvidedServiceController {
     }
     @FXML
     void update(){
-        cbClient.getSelectionModel().select(clientDao.findById(automobileDao.findById(providedService.getIdautomobile()).getIdclient()));
-        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getClientID()));
+        cbClient.getSelectionModel().select(clientDao.findById(automobileDao.findById(providedService.getAutomobile_id()).getClient_id()));
+        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
         cbAutomobile.setItems(automobiles);
-        cbAutomobile.getSelectionModel().select(automobileDao.findById(providedService.getIdautomobile()));
-        cbService.getSelectionModel().select(serviceDao.findById(providedService.getIdservice()));
-        cbEmployer.getSelectionModel().select(employerDao.findById(providedService.getIdemployer()));
-        dpDone.setValue(providedService.getSqlDateTime().toLocalDate());
+        cbAutomobile.getSelectionModel().select(automobileDao.findById(providedService.getAutomobile_id()));
+        cbService.getSelectionModel().select(serviceDao.findById(providedService.getService_id()));
+        cbEmployer.getSelectionModel().select(employerDao.findById(providedService.getEmployer_id()));
+        dpDone.setValue(providedService.getDateOfProvide());
     }
     @FXML
     void onClientchanged(ActionEvent event) {
         automobiles.clear();
         cbAutomobile.setItems(automobiles);
-        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getClientID()));
+        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
     }
     @FXML
     void onCancel(ActionEvent event) {
@@ -112,10 +112,10 @@ public class EditProvidedServiceController {
             Error(bundle.getString("employerfieldempty"));
         else
         {
-            providedService.setIdautomobile(cbAutomobile.getSelectionModel().getSelectedItem().getAutomobileID());
-            providedService.setIdservice(cbService.getSelectionModel().getSelectedItem().getServiceID());
-            providedService.setIdemployer(cbEmployer.getSelectionModel().getSelectedItem().getEmployerID());
-            providedService.setDatetime(new java.util.Date(java.sql.Date.valueOf(dpDone.getValue()).getTime()));
+            providedService.setAutomobile_id(cbAutomobile.getSelectionModel().getSelectedItem().getId());
+            providedService.setService_id(cbService.getSelectionModel().getSelectedItem().getId());
+            providedService.setEmployer_id(cbEmployer.getSelectionModel().getSelectedItem().getId());
+            providedService.setDateOfProvide(LocalDate.parse(dpDone.getValue().toString()));
             action=true;
             editStage.close();
         }

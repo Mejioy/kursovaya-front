@@ -26,15 +26,12 @@ public class EditServiceController {
     public void setService(Service service) {
         this.service = service;
         tName.setText(service.getName());
-        tDuration.setText(String.valueOf(service.getDuration()));
         tPrice.setText(String.valueOf(service.getPrice()));
         if(service.getDescription()!=null)
             tDescription.setText(service.getDescription());
     }
     @FXML
     private TextArea tDescription;
-    @FXML
-    private TextField tDuration;
     @FXML
     private TextField tName;
     @FXML
@@ -55,14 +52,11 @@ public class EditServiceController {
     void onOK(ActionEvent event) {
         if(tName.getText()==null || tName.getText().trim().isEmpty())
             Error(bundle.getString("servicenamefieldempty"));
-        else if (tDuration.getText()==null ||tDuration.getText().trim().isEmpty() ||  Integer.parseInt(tDuration.getText()) <= 0)
-            Error(bundle.getString("durationincorrect"));
         else if (tPrice.getText()==null ||tPrice.getText().trim().isEmpty() || Integer.parseInt(tPrice.getText()) < 0)
             Error(bundle.getString("priceincorrect"));
         else
         {
             service.setName(tName.getText().trim());
-            service.setDuration(Integer.parseInt(tDuration.getText().trim()));
             service.setPrice(Integer.parseInt(tPrice.getText().trim()));
             service.setDescription(tDescription.getText());
             action=true;

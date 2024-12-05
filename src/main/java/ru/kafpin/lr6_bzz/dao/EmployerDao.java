@@ -131,7 +131,7 @@ public class EmployerDao implements Dao<Employer, Long>{
                 statement.setInt(8,employer.getAppartment());
             else
                 statement.setNull(8, Types.INTEGER);
-            statement.setLong(9,employer.getEmployerID());
+            statement.setLong(9,employer.getId());
             statement.executeUpdate();
         }
         catch (SQLException e){

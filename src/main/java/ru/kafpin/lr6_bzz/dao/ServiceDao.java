@@ -1,8 +1,15 @@
 package ru.kafpin.lr6_bzz.dao;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NoArgsConstructor;
 import ru.kafpin.lr6_bzz.domains.Service;
 import ru.kafpin.lr6_bzz.utils.DBHelper;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,53 +17,55 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.*;
 
-/**
- * Класс ServiceDao со свойством property.
- * <p>
- *     Данный класс разработан как реализация интерфейса Dao для сущности Услуга.
- * </p>
- * @author Ярослав Кокурин
- * @version 1.0
- */
+@NoArgsConstructor
 public class ServiceDao implements Dao<Service, Long> {
-    /** Поле свойство*/
-    private Properties property;
     private ResourceBundle bundle = ResourceBundle.getBundle("administrator", Locale.getDefault());
-    /**
-     * Конструктор – создание нового экземпляра
-     * @see ServiceDao#ServiceDao()
-     */
-    public ServiceDao() throws Exception {
-        URL url = this.getClass()
-                        .getResource("/ru/kafpin/lr6_bzz/service.properties");
-        this.property = new Properties();
-        FileInputStream fis = null;
-        if(url==null)
-            throw new Exception();
-        try {
-            fis = new FileInputStream(url.getFile());
-            property.load(fis);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    /**
-     * Функция получения коллекции {@link Service} из БД
-     * @return возвращает коллекцию {@link Service}
-     */
+
+
     @Override
     public Collection<Service> findALl() {
         List<Service> list = null;
-        ResultSet rs = null;
-        try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.select"))){
-            rs = statement.executeQuery();
-            list = mapper(rs);
+        URL url;
+        HttpURLConnection conn = null;
+        try {
+            url = new URL("http://127.0.0.1:8080/api/services");
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                return null;
+            }
         }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
+        catch (IOException e) {
+        }
+
+        StringBuilder content = new StringBuilder();
+            try(BufferedReader bufferedReader =
+                    new BufferedReader(
+                            new InputStreamReader(conn.getInputStream()))){
+                String line;
+                while((line = bufferedReader.readLine()) != null) {
+                    content.append(line);
+                    content.append("\n");
+                }
+            } catch (IOException e) {
+                System.out.println("bufferReader");
+            }
+        System.out.println(content);
+        ObjectMapper mapper = new ObjectMapper();
+
+
+        try {
+            list = mapper.reader()
+                    .forType(new TypeReference<List<Service>>() {})
+                    .readValue(content.toString());
+        } catch (JsonProcessingException e) {
+            System.out.println(e);
+            System.out.println("Error of parsing");
         }
         return list;
     }
+
     /**
      * Функция преобразования результирующего набора(выборки) в коллекцию {@link Service}
      * @param rs результирующий набор
@@ -69,7 +78,7 @@ public class ServiceDao implements Dao<Service, Long> {
                 list.add(new Service(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("duration"),
+//                        rs.getInt("duration"),
                         rs.getInt("price"),
                         rs.getString("description")
                 ));
@@ -80,6 +89,8 @@ public class ServiceDao implements Dao<Service, Long> {
         }
         return list;
     }
+
+
     /**
      * Функция добавления {@link Service} в БД
      * @param service сущность {@link Service}
@@ -89,12 +100,12 @@ public class ServiceDao implements Dao<Service, Long> {
     public Service save(Service service) {
             try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.insert"))){
             statement.setString(1,service.getName());
-            statement.setInt(2,service.getDuration());
-            statement.setInt(3,service.getPrice());
+//            statement.setInt(2,service.getDuration());
+            statement.setInt(2,service.getPrice());
             if(service.getDescription()!=null&&!service.getDescription().trim().isEmpty())
-                statement.setString(4,service.getDescription());
+                statement.setString(3,service.getDescription());
             else
-                statement.setNull(4, Types.VARCHAR);
+                statement.setNull(3, Types.VARCHAR);
             statement.executeUpdate();
         }
         catch (SQLException e){
@@ -111,13 +122,13 @@ public class ServiceDao implements Dao<Service, Long> {
     public Service update(Service service) {
         try(PreparedStatement statement = DBHelper.getConnection().prepareStatement(property.getProperty("sql.update"))){
             statement.setString(1,service.getName());
-            statement.setInt(2,service.getDuration());
-            statement.setInt(3,service.getPrice());
+//            statement.setInt(2,service.getDuration());
+            statement.setInt(2,service.getPrice());
             if(service.getDescription()!=null&&!service.getDescription().trim().isEmpty())
-                statement.setString(4,service.getDescription());
+                statement.setString(3,service.getDescription());
             else
-                statement.setNull(4, Types.VARCHAR);
-            statement.setLong(5,service.getServiceID());
+                statement.setNull(3, Types.VARCHAR);
+            statement.setLong(4,service.getId());
             statement.executeUpdate();
         }
         catch (SQLException e){
@@ -169,7 +180,7 @@ public class ServiceDao implements Dao<Service, Long> {
                 service = new Service(
                         rs.getInt("id"),
                         rs.getString("name"),
-                        rs.getInt("duration"),
+//                        rs.getInt("duration"),
                         rs.getInt("price"),
                         rs.getString("description")
                 );
