@@ -19,15 +19,6 @@ public class Automobile {
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", mark='" + mark + '\'' +
-                ", model='" + model + '\'' +
-                ", gosnumber='" + gosnumber + '\'' +
-                ", client=" + client;
+        return getMark() + ' ' + getModel() + ' ' + getGosnumber();
     }
-
-//    @Override
-//    public String toString() {
-//        return getMark() + ' ' + getModel() + ' ' + getGosnumber();
-//    }
 }

@@ -31,6 +31,13 @@ public class EmployerController {
     private final ProvidedServiceDao providedServiceDao;
     private final ServiceDao serviceDao;
 
+    private final ObservableList<ProvidedService> providedServices = FXCollections.observableArrayList();
+    private final ObservableList<Client> clients = FXCollections.observableArrayList();
+    private final ObservableList<Automobile> automobiles = FXCollections.observableArrayList();
+    private final ObservableList<Service> services = FXCollections.observableArrayList();
+    private final ObservableList<Employer> employers = FXCollections.observableArrayList();
+    private final ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
+
     @FXML
     private TableView<ProvidedService> tvProvidedServices;
     @FXML
@@ -72,36 +79,27 @@ public class EmployerController {
             employerDao = new EmployerDao();
             providedServiceDao = new ProvidedServiceDao();
             serviceDao = new ServiceDao();
+            services.addAll(serviceDao.findALl());
+            employers.addAll(employerDao.findALl());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    protected ObservableList<ProvidedService> providedServices = FXCollections.observableArrayList();
-    protected ObservableList<Client> clients = FXCollections.observableArrayList();
-    protected ObservableList<Automobile> automobiles = FXCollections.observableArrayList();
-    protected ObservableList<Service> services = FXCollections.observableArrayList();
-    protected ObservableList<Employer> employers = FXCollections.observableArrayList();
-    private final ResourceBundle bundle = ResourceBundle.getBundle("employer", Locale.getDefault());
-    private Date dateFrom, dateTo;
+
+
     LocalDate localDatefrom = LocalDate.of(2020,1,1);
     LocalDate localDateto = LocalDate.now();
     @FXML
     void initialize() {
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
-//        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
-        tcName.setCellValueFactory(s -> new SimpleStringProperty(serviceDao.findById(s.getValue().getService_id()).getName()));
+        providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
+        tcName.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getService().getName()));
         tcClientFIO.setCellValueFactory(s -> new SimpleStringProperty(
-                clientDao.findById(
-                        automobileDao.findById(s.getValue().getAutomobile_id()).getClient().getId()).toString())
-        );
-        tcAutomobile.setCellValueFactory(s -> new SimpleStringProperty(
-                automobileDao.findById(s.getValue().getAutomobile_id()).toString()
-        ));
-        tcEmployerFIO.setCellValueFactory(s -> new SimpleStringProperty(
-                employerDao.findById(s.getValue().getEmployer_id()).toString()
-        ));
-        tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(serviceDao.findById(s.getValue().getService_id()).getPrice()));
+                automobileDao.findById(s.getValue().getAutomobile().getId()).getClient().toString()));
+        tcAutomobile.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getAutomobile().toString()));
+        tcEmployerFIO.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getEmployer().toString()));
+        tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getService().getPrice()));
         tcDatetime.setCellValueFactory(s -> new SimpleObjectProperty<Date>(s.getValue().getSqlDate()));
         tvProvidedServices.setItems(providedServices);
         tvProvidedServices.getSortOrder().add(tcDatetime);
@@ -119,8 +117,6 @@ public class EmployerController {
     void onDataChanged(ActionEvent event) {
         localDatefrom = dpFrom.getValue();
         localDateto = dpTo.getValue();
-//        dateFrom = new Date(java.sql.Date.valueOf(localDatefrom).getTime());
-//        dateTo = new Date(java.sql.Date.valueOf(localDateto).getTime());
         providedServices.clear();
         providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
         tvProvidedServices.setItems(providedServices);
@@ -161,7 +157,6 @@ public class EmployerController {
     }
     @FXML
     void onAddProvidedService(ActionEvent event) {
-//        ProvidedService providedService = new ProvidedService(new Date());
         ProvidedService providedService = new ProvidedService();
         if(showProvidedServiceDialog(providedService,false)){
             providedServiceDao.save(providedService);
@@ -273,9 +268,7 @@ public class EmployerController {
             editProvidedServiceController.setEditStage(addStage);
             editProvidedServiceController.setBundle(bundle);
             editProvidedServiceController.setClients(clients);
-            services.addAll(serviceDao.findALl());
             editProvidedServiceController.setServices(services);
-            employers.addAll(employerDao.findALl());
             editProvidedServiceController.setEmployers(employers);
             editProvidedServiceController.initialize();
             if(update)

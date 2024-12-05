@@ -32,23 +32,11 @@ public class Employer {
         this.house = house;
     }
 
-    @Override
+        @Override
     public String toString() {
-        return "id=" + id +
-                ", name='" + name + '\'' +
-                ", surName='" + surName + '\'' +
-                ", patronym='" + patronym + '\'' +
-                ", phone='" + phone + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", house=" + house +
-                ", appartment=" + appartment;
+        return getSurName() + ' ' + getName() + ' ' + getPatronym();
     }
 
-    //    @Override
-//    public String toString() {
-//        return getSurName() + ' ' + getName() + ' ' + getPatronym();
-//    }
     public void setNullAppartment(){
         this.appartment = null;
     }

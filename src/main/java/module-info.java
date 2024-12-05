@@ -3,8 +3,9 @@ module ru.kafpin.lr6_bzz {
     requires javafx.fxml;
     requires static lombok;
     requires java.sql;
-    requires com.fasterxml.jackson.databind;
     requires org.json;
+    requires com.fasterxml.jackson.datatype.jsr310;
+    requires com.fasterxml.jackson.databind;
 
 
     opens ru.kafpin.lr6_bzz.domains to com.fasterxml.jackson.databind,org.json;

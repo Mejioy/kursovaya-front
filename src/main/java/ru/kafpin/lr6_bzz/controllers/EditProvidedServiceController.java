@@ -58,12 +58,12 @@ public class EditProvidedServiceController {
     }
     @FXML
     void update(){
-        cbClient.getSelectionModel().select(clientDao.findById(automobileDao.findById(providedService.getAutomobile_id()).getClient().getId()));
+        cbClient.getSelectionModel().select(providedService.getAutomobile().getClient());
         automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
         cbAutomobile.setItems(automobiles);
-        cbAutomobile.getSelectionModel().select(automobileDao.findById(providedService.getAutomobile_id()));
-        cbService.getSelectionModel().select(serviceDao.findById(providedService.getService_id()));
-        cbEmployer.getSelectionModel().select(employerDao.findById(providedService.getEmployer_id()));
+        cbAutomobile.getSelectionModel().select(providedService.getAutomobile());
+        cbService.getSelectionModel().select(providedService.getService());
+        cbEmployer.getSelectionModel().select(providedService.getEmployer());
         dpDone.setValue(providedService.getDateOfProvide());
     }
     @FXML
@@ -96,9 +96,9 @@ public class EditProvidedServiceController {
             Error(bundle.getString("employerfieldempty"));
         else
         {
-            providedService.setAutomobile_id(cbAutomobile.getSelectionModel().getSelectedItem().getId());
-            providedService.setService_id(cbService.getSelectionModel().getSelectedItem().getId());
-            providedService.setEmployer_id(cbEmployer.getSelectionModel().getSelectedItem().getId());
+            providedService.setAutomobile(cbAutomobile.getSelectionModel().getSelectedItem());
+            providedService.setService(cbService.getSelectionModel().getSelectedItem());
+            providedService.setEmployer(cbEmployer.getSelectionModel().getSelectedItem());
             providedService.setDateOfProvide(LocalDate.parse(dpDone.getValue().toString()));
             action=true;
             editStage.close();
