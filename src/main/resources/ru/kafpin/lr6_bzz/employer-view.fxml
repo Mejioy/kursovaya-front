@@ -19,7 +19,7 @@
                <children>
                   <TableView fx:id="tvProvidedServices" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <columns>
-                      <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="%name" />
+                      <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="275.0" text="%name" />
                       <TableColumn fx:id="tcClientFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%clientfio" />
                         <TableColumn fx:id="tcAutomobile" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="150.0" text="%automobile" />
                         <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%employerfio" />

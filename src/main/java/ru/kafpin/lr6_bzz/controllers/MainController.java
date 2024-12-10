@@ -31,7 +31,7 @@ public class MainController {
     void onConfirm(ActionEvent event) {
         switch (cbAuth.getSelectionModel().getSelectedIndex()){
             case 0:
-                showDialog("service", bundle.getString("clientscene"));
+                showDialog("client", bundle.getString("clientscene"));
                 break;
             case 1:
                 showDialog("employer", bundle.getString("employerscene"));
@@ -54,7 +54,7 @@ public class MainController {
             addStage.initModality(Modality.APPLICATION_MODAL);
             addStage.initOwner(MainApplication.getMainStage());
                         switch (viewName){
-                case "service":
+                case "client":
                     ClientController clientController = loader.getController();
                     clientController.setClientStage(addStage);
                     break;

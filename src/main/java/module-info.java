@@ -6,6 +6,7 @@ module ru.kafpin.lr6_bzz {
     requires org.json;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.databind;
+    requires java.desktop;
 
 
     opens ru.kafpin.lr6_bzz.domains to com.fasterxml.jackson.databind,org.json;

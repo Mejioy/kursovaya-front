@@ -42,7 +42,6 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
         catch (IOException e) {
             System.out.println("URL/Connection error");
         }
-
         return parseJsonToListProvidedServices();
     }
 
@@ -61,8 +60,23 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             System.out.println("URL/Connection error");
         }
         return parseJsonToListProvidedServices();
+    }
 
-
+    public Collection<ProvidedService> findALlOfAutomobile(Long id) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/providededservicesofautomobile/"+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToListProvidedServices();
     }
 
     @Override
