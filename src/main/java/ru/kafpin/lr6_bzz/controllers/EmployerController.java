@@ -136,10 +136,16 @@ public class EmployerController {
             Automobile automobile = new Automobile();
             automobile.setClient(cbClients.getSelectionModel().getSelectedItem());
             if(showAutomobileDialog(automobile)){
-                automobileDao.save(automobile);
-                automobiles.clear();
-                automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
-                tvAutomobiles.sort();
+                Automobile existsAutomobile = automobileDao.findByGosnumber(automobile.getGosnumber());
+                if(existsAutomobile!=null && Objects.equals(existsAutomobile.getClient(), automobile.getClient())){
+                    Error("Невозможно создать автомобиль с указанным гос.номером, т.к. данный гос.номер присвоен другому автомобилю");
+                }
+                else{
+                    automobileDao.save(automobile);
+                    automobiles.clear();
+                    automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
+                    tvAutomobiles.sort();
+                }
             }
         }
         else
@@ -149,10 +155,16 @@ public class EmployerController {
     void onAddClient(ActionEvent event) {
         Client client = new Client();
         if(showClientDialog(client)){
-            clientDao.save(client);
-            clients.clear();
-            clients.addAll(clientDao.findALl());
-            tvClients.sort();
+            Client existsClient = clientDao.findByPhone(client.getPhone());
+            if(existsClient!=null){
+                Error("Невозможно создать клиента с указанным номером телефона, т.к. номер занят другим клиентом");
+            }
+            else{
+                clientDao.save(client);
+                clients.clear();
+                clients.addAll(clientDao.findALl());
+                tvClients.sort();
+            }
         }
     }
     @FXML
@@ -171,10 +183,17 @@ public class EmployerController {
             Automobile automobile = tvAutomobiles.getSelectionModel().getSelectedItem();
             if (automobile != null){
                 if(showAutomobileDialog(automobile)){
-                automobileDao.update(automobile);            }
-                automobiles.clear();
-                automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
-                tvAutomobiles.sort();
+                    Automobile existsAutomobile = automobileDao.findByGosnumber(automobile.getGosnumber());
+                    if(existsAutomobile!=null && !Objects.equals(existsAutomobile.getId(), automobile.getId()) || !Objects.equals(existsAutomobile.getClient(), automobile.getClient())){
+                        Error("Невозможно изменить гос.номер выбранного автомобиля, т.к. введённый гос.номер присвоен другому автомобилю");
+                    }
+                    else{
+                        automobileDao.update(automobile);
+                    }
+                    automobiles.clear();
+                    automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getId()));
+                    tvAutomobiles.sort();
+                }
             }
             else
                 Error(bundle.getString("autonotchoicedforautoupd"));
@@ -187,7 +206,13 @@ public class EmployerController {
         Client client = tvClients.getSelectionModel().getSelectedItem();
         if (client != null){
             if(showClientDialog(client)){
-                clientDao.update(client);
+                Client existsClient = clientDao.findByPhone(client.getPhone());
+                if(existsClient!=null&& !Objects.equals(existsClient.getId(), client.getId())){
+                    Error("Невозможно изменить номер выбранного клиента, т.к. введённый номер занят другим клиентом");
+                }
+                else{
+                    clientDao.update(client);
+                }
                 clients.clear();
                 clients.addAll(clientDao.findALl());
                 tvClients.sort();
@@ -219,6 +244,8 @@ public class EmployerController {
                     tvAutomobiles.getItems().remove(tvAutomobiles.getSelectionModel().getSelectedIndex());
                     automobileDao.deleteById(automobile.getId());
                     tvAutomobiles.sort();
+                    providedServices.clear();
+                    providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
                 }
             }
             else
@@ -235,6 +262,8 @@ public class EmployerController {
                 tvClients.getItems().remove(tvClients.getSelectionModel().getSelectedIndex());
                 clientDao.deleteById(client.getId());
                 tvClients.sort();
+                providedServices.clear();
+                providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
             }
         }
         else

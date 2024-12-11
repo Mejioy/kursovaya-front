@@ -17,10 +17,13 @@ import lombok.Setter;
 import ru.kafpin.lr6_bzz.MainApplication;
 import ru.kafpin.lr6_bzz.dao.EmployerDao;
 import ru.kafpin.lr6_bzz.dao.ServiceDao;
+import ru.kafpin.lr6_bzz.domains.Automobile;
+import ru.kafpin.lr6_bzz.domains.Client;
 import ru.kafpin.lr6_bzz.domains.Employer;
 import ru.kafpin.lr6_bzz.domains.Service;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AdministratorController {
@@ -136,20 +139,34 @@ public class AdministratorController {
     void onAddEmployer(ActionEvent event) {
         Employer employer = new Employer();
         if(showEmployerDialog(employer)){
-            employerDao.save(employer);
-            if(employer.getAppartment()==null)
-                employer.setAppartment(0);
-            employers.add(employer);
-            tvEmployers.sort();
+            Employer existsEmployer = employerDao.findByPhone(employer.getPhone());
+            if(existsEmployer!=null){
+                Error("Невозможно создать сотрудника с указанным номером телефона, т.к. номер занят другим сотрудником");
+            }
+            else{
+                employerDao.save(employer);
+                if(employer.getAppartment()==null)
+                    employer.setAppartment(0);
+                employers.clear();
+                employers.addAll(employerDao.findALl());
+                tvEmployers.sort();
+            }
         }
     }
     @FXML
     void onAddService(ActionEvent event) {
         Service service = new Service();
         if(showServiceDialog(service)){
-            serviceDao.save(service);
-            services.add(service);
-            tvServices.sort();
+            Service existsService = serviceDao.findByName(service.getName());
+            if(existsService!=null){
+                Error("Невозможно создать услугу с указанным названием, т.к. услуга с таким названием уже существует");
+            }
+            else{
+                serviceDao.save(service);
+                services.clear();
+                services.addAll(serviceDao.findALl());
+                tvServices.sort();
+            }
         }
     }
 
@@ -158,7 +175,13 @@ public class AdministratorController {
         Employer employer = tvEmployers.getSelectionModel().getSelectedItem();
         if (employer != null){
             if(showEmployerDialog(employer)){
-                employerDao.update(employer);
+                Employer existsEmployer = employerDao.findByPhone(employer.getPhone());
+                if(existsEmployer!=null&& !Objects.equals(existsEmployer.getId(), employer.getId())){
+                    Error("Невозможно изменить номер выбранного сотрудника, т.к. введённый номер занят другим сотрудником");
+                }
+                else{
+                    employerDao.update(employer);
+                }
                 employers.clear();
                 employers.addAll(employerDao.findALl());
                 tvEmployers.sort();
@@ -172,7 +195,13 @@ public class AdministratorController {
         Service service = tvServices.getSelectionModel().getSelectedItem();
         if (service != null){
             if(showServiceDialog(service)){
-                serviceDao.update(service);
+                Service existsService = serviceDao.findByName(service.getName());
+                if(existsService!=null&& !Objects.equals(existsService.getId(), service.getId())){
+                    Error("Невозможно изменить название выбранного сотрудника, т.к. введённое название соответствует названию другой услуги");
+                }
+                else{
+                    serviceDao.update(service);
+                }
                 services.clear();
                 services.addAll(serviceDao.findALl());
                 tvServices.sort();

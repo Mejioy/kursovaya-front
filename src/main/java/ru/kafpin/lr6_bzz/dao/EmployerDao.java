@@ -3,6 +3,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
+import ru.kafpin.lr6_bzz.domains.Client;
 import ru.kafpin.lr6_bzz.domains.Employer;
 
 import java.io.*;
@@ -62,7 +63,7 @@ public class EmployerDao implements Dao<Employer, Long>{
         String json = parseSingleEmployerToJson(employer);
 
         try {
-            url = new URL("http://127.0.0.1:8080/api/employers/add");
+            url = new URL("http://127.0.0.1:8080/api/employers");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -128,6 +129,22 @@ public class EmployerDao implements Dao<Employer, Long>{
         return parseJsonToSingleEmployer();
     }
 
+    public Employer findByPhone(String phone) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/employers/phone/"+phone);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToSingleEmployer();
+    }
     private void writeResponseToJson(String json){
         try(OutputStream os = conn.getOutputStream()) {
             byte[] input = json.getBytes(StandardCharsets.UTF_8);

@@ -65,7 +65,7 @@ public class ServiceDao implements Dao<Service, Long> {
         String json = parseSingleServiceToJson(service);
 
         try {
-            url = new URL("http://127.0.0.1:8080/api/services/add");
+            url = new URL("http://127.0.0.1:8080/api/services");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -128,30 +128,25 @@ public class ServiceDao implements Dao<Service, Long> {
         catch (IOException e) {
             System.out.println("URL/Connection error");
         }
-//        StringBuilder content = new StringBuilder();
-//        try(BufferedReader bufferedReader =
-//                    new BufferedReader(
-//                            new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))){
-//            String line;
-//            while((line = bufferedReader.readLine()) != null) {
-//                content.append(line);
-//                content.append("\n");
-//            }
-//        } catch (IOException e) {
-//            System.out.println("bufferReader error");
-//        }
-//        System.out.println(content);
-//        try {
-//            service = mapper.reader()
-//                    .forType(Service.class)
-//                    .readValue(content.toString());
-//        } catch (JsonProcessingException e) {
-//            System.out.println(e);
-//            System.out.println("Error of parsing");
-//        }
         return parseJsonToSingleService();
     }
 
+    public Service findByName(String name) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/services/name/"+name);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToSingleService();
+    }
     private void writeResponseToJson(String json){
         try(OutputStream os = conn.getOutputStream()) {
             byte[] input = json.getBytes(StandardCharsets.UTF_8);

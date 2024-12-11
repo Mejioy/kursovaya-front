@@ -47,7 +47,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
 
     public Collection<ProvidedService> findALlFromTo(LocalDate from, LocalDate to) {
         try {
-            url = new URL("http://127.0.0.1:8080/api/providededservicesbetween/from="+from+"to="+to);
+            url = new URL("http://127.0.0.1:8080/api/providededservices/between/from="+from+"to="+to);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -64,7 +64,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
 
     public Collection<ProvidedService> findALlOfAutomobile(Long id) {
         try {
-            url = new URL("http://127.0.0.1:8080/api/providededservicesofautomobile/"+id);
+            url = new URL("http://127.0.0.1:8080/api/providededservices/automobile/"+id);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -84,7 +84,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
         String json = parseSingleProvidedServiceToJson(providedService);
 
         try {
-            url = new URL("http://127.0.0.1:8080/api/providedservices/add");
+            url = new URL("http://127.0.0.1:8080/api/providedservices");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");

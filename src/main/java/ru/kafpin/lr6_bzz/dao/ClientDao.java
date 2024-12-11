@@ -61,7 +61,7 @@ public class ClientDao implements Dao<Client, Long> {
         String json = parseSingleClientToJson(client);
 
         try {
-            url = new URL("http://127.0.0.1:8080/api/clients/add");
+            url = new URL("http://127.0.0.1:8080/api/clients");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -113,6 +113,24 @@ public class ClientDao implements Dao<Client, Long> {
     public Client findById(Long id) {
         try {
             url = new URL("http://127.0.0.1:8080/api/clients/"+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToSingleClient();
+    }
+
+
+    public Client findByPhone(String phone) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/clients/phone/"+phone);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");

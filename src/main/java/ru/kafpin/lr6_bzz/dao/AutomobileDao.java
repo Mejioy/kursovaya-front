@@ -41,7 +41,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
 
     public Collection<Automobile> findALlCarsOfOwner(Long id) {
         try {
-            url = new URL("http://127.0.0.1:8080/api/automobilesofowner/"+id);
+            url = new URL("http://127.0.0.1:8080/api/automobiles/owner/"+id);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
@@ -61,7 +61,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
         String json = parseSingleAutomobileToJson(automobile);
 
         try {
-            url = new URL("http://127.0.0.1:8080/api/automobiles/add");
+            url = new URL("http://127.0.0.1:8080/api/automobiles");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -113,6 +113,23 @@ public class AutomobileDao implements Dao<Automobile, Long> {
     public Automobile findById(Long id) {
         try {
             url = new URL("http://127.0.0.1:8080/api/automobiles/"+id);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return null;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        return parseJsonToSingleAutomobile();
+    }
+
+    public Automobile findByGosnumber(String gosnumber) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/automobiles/gosnumber/"+gosnumber);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
