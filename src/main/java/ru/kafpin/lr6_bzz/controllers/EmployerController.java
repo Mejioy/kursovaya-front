@@ -137,7 +137,7 @@ public class EmployerController {
             automobile.setClient(cbClients.getSelectionModel().getSelectedItem());
             if(showAutomobileDialog(automobile)){
                 Automobile existsAutomobile = automobileDao.findByGosnumber(automobile.getGosnumber());
-                if(existsAutomobile!=null && Objects.equals(existsAutomobile.getClient(), automobile.getClient())){
+                if(existsAutomobile!=null){
                     Error("Невозможно создать автомобиль с указанным гос.номером, т.к. данный гос.номер присвоен другому автомобилю");
                 }
                 else{
@@ -184,7 +184,7 @@ public class EmployerController {
             if (automobile != null){
                 if(showAutomobileDialog(automobile)){
                     Automobile existsAutomobile = automobileDao.findByGosnumber(automobile.getGosnumber());
-                    if(existsAutomobile!=null && !Objects.equals(existsAutomobile.getId(), automobile.getId()) || !Objects.equals(existsAutomobile.getClient(), automobile.getClient())){
+                    if(existsAutomobile!=null && !Objects.equals(existsAutomobile.getId(), automobile.getId())){
                         Error("Невозможно изменить гос.номер выбранного автомобиля, т.к. введённый гос.номер присвоен другому автомобилю");
                     }
                     else{
@@ -207,7 +207,7 @@ public class EmployerController {
         if (client != null){
             if(showClientDialog(client)){
                 Client existsClient = clientDao.findByPhone(client.getPhone());
-                if(existsClient!=null&& !Objects.equals(existsClient.getId(), client.getId())){
+                if(existsClient!=null && !Objects.equals(existsClient.getId(), client.getId())){
                     Error("Невозможно изменить номер выбранного клиента, т.к. введённый номер занят другим клиентом");
                 }
                 else{
