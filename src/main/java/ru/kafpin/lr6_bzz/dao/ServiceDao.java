@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import ru.kafpin.lr6_bzz.domains.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,11 +14,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static ru.kafpin.lr6_bzz.MainApplication.encodedAuth;
+
 @NoArgsConstructor
 public class ServiceDao implements Dao<Service, Long> {
-
-    @Setter
-    private String encodedAuth;
 
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();

@@ -8,12 +8,12 @@
 
 <AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kafpin.lr6_bzz.controllers.RegistryController">
    <children>
-      <Label layoutX="10.0" layoutY="10.0" text="%surname" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="15.0" />
-      <Label layoutX="10.0" layoutY="10.0" text="%firstname" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="50.0" />
-      <Label layoutX="10.0" layoutY="10.0" text="%patronym" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="85.0" />
-      <Label layoutX="10.0" layoutY="10.0" text="%phone" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="120.0" />
-      <Label layoutX="20.0" layoutY="20.0" text="%passw1" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="155.0" />
-      <Label layoutX="30.0" layoutY="30.0" text="%passw2" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="190.0" />
+      <Label layoutX="10.0" layoutY="10.0" text="Фамилия" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="15.0" />
+      <Label layoutX="10.0" layoutY="10.0" text="Имя" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="50.0" />
+      <Label layoutX="10.0" layoutY="10.0" text="Отчество" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="85.0" />
+      <Label layoutX="10.0" layoutY="10.0" text="Номер телефона" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="120.0" />
+      <Label layoutX="20.0" layoutY="20.0" text="Пароль" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="155.0" />
+      <Label layoutX="30.0" layoutY="30.0" text="Подтвердите пароль" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="190.0" />
       <TextField fx:id="tSurName" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0" />
       <TextField fx:id="tName" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="45.0" />
       <TextField fx:id="tPatronym" layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="80.0" />
@@ -22,8 +22,8 @@
       <TextField fx:id="tPass2" layoutX="30.0" layoutY="30.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="185.0" />
       <ButtonBar buttonMinWidth="20.0" maxHeight="94.0" prefHeight="40.0" prefWidth="384.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
          <buttons>
-            <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onOK" prefWidth="70.0" text="%ok" />
-            <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onCancel" prefWidth="70.0" text="%cancel" />
+            <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onOK" prefWidth="70.0" text="ОК" />
+            <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onCancel" prefWidth="70.0" text="Отмена" />
          </buttons>
       </ButtonBar>
    </children>

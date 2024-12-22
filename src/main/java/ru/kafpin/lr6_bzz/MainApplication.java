@@ -14,18 +14,18 @@ import java.util.ResourceBundle;
 public class MainApplication extends Application {
     @Getter
     private static Stage mainStage;
-
-    @Getter
     private static Connection connection;
     private static ResourceBundle bundle;
+    public static String encodedAuth;
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("authorization-view.fxml"),bundle);
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("authorization-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 350 , 180);
         stage.setResizable(false);
         stage.setMinWidth(350);
         stage.setMinHeight(180);
-        stage.setTitle(bundle.getString("title"));
+        stage.setTitle("Авторизация");
         stage.setScene(scene);
         stage.show();
     }

@@ -18,9 +18,6 @@ import java.util.ResourceBundle;
 @Data
 public class EditProvidedServiceController {
 
-    @Setter
-    private String encodedAuth;
-
     private ProvidedService providedService;
     private ResourceBundle bundle;
     private boolean action=false;
@@ -50,13 +47,13 @@ public class EditProvidedServiceController {
     void initialize(){
         try {
             clientDao = new ClientDao();
-            clientDao.setEncodedAuth(encodedAuth);
+
             serviceDao = new ServiceDao();
-            serviceDao.setEncodedAuth(encodedAuth);
+
             employerDao = new EmployerDao();
-            employerDao.setEncodedAuth(encodedAuth);
+
             automobileDao = new AutomobileDao();
-            automobileDao.setEncodedAuth(encodedAuth);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

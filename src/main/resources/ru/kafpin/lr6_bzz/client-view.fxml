@@ -10,15 +10,15 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kafpin.lr6_bzz.controllers.ClientController">
   <tabs>
-    <Tab text="%tp1">
+    <Tab text="Список услуг">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="tvServices" prefHeight="389.0" prefWidth="590.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <columns>
-                        <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="-1.0" text="%name" />
-                        <TableColumn fx:id="tcPrice" maxWidth="1.7976931348623157E308" minWidth="5.0" prefWidth="-1.0" text="%price" />
-                        <TableColumn fx:id="tcDescription" maxWidth="1.7976931348623157E308" minWidth="30.0" prefWidth="-1.0" text="%description" />
+                        <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="20.0" prefWidth="-1.0" text="Название" />
+                        <TableColumn fx:id="tcPrice" maxWidth="1.7976931348623157E308" minWidth="5.0" prefWidth="-1.0" text="Стоимость" />
+                        <TableColumn fx:id="tcDescription" maxWidth="1.7976931348623157E308" minWidth="30.0" prefWidth="-1.0" text="Описание" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -28,23 +28,23 @@
             </AnchorPane>
          </content>
     </Tab>
-      <Tab text="%tp2">
+      <Tab text="Список оказанных автомобилю услуг">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
                   <TableView fx:id="tvProvidedServices" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="35.0">
                      <columns>
-                        <TableColumn fx:id="tcNameOfProvided" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="275.0" text="%name" />
-                        <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%employerfio" />
-                        <TableColumn fx:id="tcPriceOfProvided" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="%price" />
-                        <TableColumn fx:id="tcDatetime" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="120.0" text="%datetime" />
+                        <TableColumn fx:id="tcNameOfProvided" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="275.0" text="Название" />
+                        <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="ФИО сотрудника" />
+                        <TableColumn fx:id="tcPriceOfProvided" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="Стоимость" />
+                        <TableColumn fx:id="tcDatetime" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="120.0" text="Дата оказания" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
                   <ComboBox fx:id="cbAutomobile" onAction="#onAutomobileChanged" prefWidth="200.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="5.0" />
-                  <Label text="%automobile" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0" />
+                  <Label text="Автомобиль" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0" />
                </children>
             </AnchorPane>
          </content>

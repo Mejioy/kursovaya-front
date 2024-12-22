@@ -12,11 +12,10 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+import static ru.kafpin.lr6_bzz.MainApplication.encodedAuth;
+
 @NoArgsConstructor
 public class EmployerDao implements Dao<Employer, Long>{
-
-    @Setter
-    private String encodedAuth;
 
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();

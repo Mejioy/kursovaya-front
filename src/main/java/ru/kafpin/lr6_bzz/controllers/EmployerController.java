@@ -25,8 +25,6 @@ public class EmployerController {
     @Setter
     private Stage employerStage;
 
-    @Setter
-    private String encodedAuth;
 
     private final AutomobileDao automobileDao;
     private final ClientDao clientDao;
@@ -94,11 +92,7 @@ public class EmployerController {
     LocalDate localDateto = LocalDate.now();
     @FXML
     void initialize() {
-        automobileDao.setEncodedAuth(encodedAuth);
-        clientDao.setEncodedAuth(encodedAuth);
-        employerDao.setEncodedAuth(encodedAuth);
-        providedServiceDao.setEncodedAuth(encodedAuth);
-        serviceDao.setEncodedAuth(encodedAuth);
+
 
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
@@ -302,7 +296,6 @@ public class EmployerController {
             addStage.initModality(Modality.APPLICATION_MODAL);
             addStage.initOwner(MainApplication.getMainStage());
             EditProvidedServiceController editProvidedServiceController = loader.getController();
-            editProvidedServiceController.setEncodedAuth(encodedAuth);
             editProvidedServiceController.setProvidedService(providedService);
             editProvidedServiceController.setEditStage(addStage);
             editProvidedServiceController.setBundle(bundle);

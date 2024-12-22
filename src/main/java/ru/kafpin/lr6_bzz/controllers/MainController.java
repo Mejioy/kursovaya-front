@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -27,9 +28,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 public class MainController {
     ResourceBundle bundle=ResourceBundle.getBundle("authorization", Locale.getDefault());
-
     private HttpURLConnection conn;
     private URL url;
     @FXML
@@ -50,7 +51,7 @@ public class MainController {
 
     @FXML
     void onRegistry(ActionEvent event) {
-        showDialog("registry", bundle.getString("registryscene"),"");
+        showDialog("registry", "Форма регистрации клиента");
     }
 
     @FXML
@@ -89,16 +90,17 @@ public class MainController {
 
         System.out.println(response);
         if(loginSuccess){
+            System.out.println(encodedAuth);
+            MainApplication.encodedAuth = encodedAuth;
             switch (response.toString().trim()){
                 case "ROLE_EMPLOYER":
-                    showDialog("employer", bundle.getString("employerscene"),encodedAuth);
+                    showDialog("employer", "Форма для работы сотрудника");
                     break;
                 case "ROLE_ADMIN":
-                    showDialog("administrator", bundle.getString("administratorscene"),encodedAuth);
+                    showDialog("administrator", "Форма для работы администратора");
                     break;
                 case "ROLE_USER":
-                    System.out.println(encodedAuth);
-                    showDialog("client", bundle.getString("clientscene"),encodedAuth);
+                    showDialog("client", "Форма для работы клиента");
                     break;
             }
         }
@@ -109,15 +111,16 @@ public class MainController {
     private void Error(String text){
         Alert alert;
         alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(bundle.getString("error"));
+        alert.setTitle("Ошибка");
         alert.setContentText(null);
         alert.setHeaderText(text);
         alert.showAndWait();
     }
-    private void showDialog(String viewName, String titleOfScene,String encodedAuth) {
+    private void showDialog(String viewName, String titleOfScene) {
         ResourceBundle bundle = ResourceBundle.getBundle(viewName,
                 Locale.getDefault());
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(viewName+"-view.fxml"),bundle);
+        System.out.println(viewName);
         try {
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -130,26 +133,27 @@ public class MainController {
                 case "employer":
                     EmployerController employerController = loader.getController();
                     employerController.setEmployerStage(addStage);
-                    employerController.setEncodedAuth(encodedAuth);
+
                     break;
                 case "administrator":
                     AdministratorController administratorController = loader.getController();
                     administratorController.setAdministratorStage(addStage);
-                    administratorController.setEncodedAuth(encodedAuth);
+
                     break;
                 case "registry":
                     RegistryController registryController = loader.getController();
                     registryController.setRegistryStage(addStage);
                     break;
-                default:
+                case "client":
                     ClientController clientController = loader.getController();
                     clientController.setClientStage(addStage);
-                    clientController.setEncodedAuth(encodedAuth);
+//                    clientController.setEncodedAuth(encodedAuth);
                     break;
             }
             addStage.showAndWait();
         } catch (IOException e) {
-            System.out.println(bundle.getString("loaderror"));
+            System.out.println(e);
+            System.out.println("Ошибка при загрузке формы");
         }
     }
     @FXML

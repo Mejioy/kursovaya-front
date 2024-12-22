@@ -15,11 +15,10 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 
+import static ru.kafpin.lr6_bzz.MainApplication.encodedAuth;
+
 @NoArgsConstructor
 public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
-
-    @Setter
-    private String encodedAuth;
 
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();
