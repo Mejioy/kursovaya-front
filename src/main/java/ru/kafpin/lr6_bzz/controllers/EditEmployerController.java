@@ -79,19 +79,24 @@ public class EditEmployerController {
             Error(bundle.getString("streetfieldempty"));
         else
         {
-            employer.setSurName(tSurName.getText().trim());
-            employer.setName(tName.getText().trim());
-            employer.setPatronym(tPatronym.getText().trim());
-            employer.setPhone(tPhone.getText().trim());
-            employer.setCity(tCity.getText().trim());
-            employer.setStreet(tStreet.getText().trim());
-            employer.setHouse(Integer.parseInt(tHouse.getText().trim()));
-            if (!tAppartment.getText().trim().isEmpty())
-                employer.setAppartment(Integer.parseInt(tAppartment.getText().trim()));
-            else
-                employer.setNullAppartment();
-            action=true;
-            editStage.close();
+            if(!tPhone.getText().matches("^8\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$")){
+                Error("Телефон должен быть введён в формате: 8(***)***-**-**");
+            }
+            else {
+                employer.setSurName(tSurName.getText().trim());
+                employer.setName(tName.getText().trim());
+                employer.setPatronym(tPatronym.getText().trim());
+                employer.setPhone(tPhone.getText().trim());
+                employer.setCity(tCity.getText().trim());
+                employer.setStreet(tStreet.getText().trim());
+                employer.setHouse(Integer.parseInt(tHouse.getText().trim()));
+                if (!tAppartment.getText().trim().isEmpty())
+                    employer.setAppartment(Integer.parseInt(tAppartment.getText().trim()));
+                else
+                    employer.setNullAppartment();
+                action=true;
+                editStage.close();
+            }
         }
     }
 }

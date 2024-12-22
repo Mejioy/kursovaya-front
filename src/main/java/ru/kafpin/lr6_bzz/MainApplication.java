@@ -17,6 +17,7 @@ public class MainApplication extends Application {
     private static Connection connection;
     private static ResourceBundle bundle;
     public static String encodedAuth;
+    public static String login;
 
     @Override
     public void start(Stage stage) throws IOException {

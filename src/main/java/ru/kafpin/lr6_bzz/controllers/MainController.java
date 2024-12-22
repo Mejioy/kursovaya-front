@@ -92,6 +92,7 @@ public class MainController {
         if(loginSuccess){
             System.out.println(encodedAuth);
             MainApplication.encodedAuth = encodedAuth;
+            MainApplication.login = tLogin.getText();
             switch (response.toString().trim()){
                 case "ROLE_EMPLOYER":
                     showDialog("employer", "Форма для работы сотрудника");

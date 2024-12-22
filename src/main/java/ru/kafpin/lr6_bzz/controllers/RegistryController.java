@@ -90,19 +90,24 @@ public class RegistryController {
                 if(tPass1.getText().matches("[^a-zA-Z\\d]")) {
                     Error(bundle.getString("passwordcheck"));
                 }
-                client = new RegisterClient();
-                client.setSurName(tSurName.getText().trim());
-                client.setName(tName.getText().trim());
-                client.setPatronym(tPatronym.getText().trim());
-                client.setPhone(tPhone.getText().trim());
-                client.setPassword(new BCryptPasswordEncoder().encode(tPass1.getText().trim()));
-                if(tryCreateUser()){
-                    Success("Пользователь успешно зарегистрирован");
-                    action=true;
-                    registryStage.close();
+                if(!tPhone.getText().matches("^8\\(\\d{3}\\)\\d{3}-\\d{2}-\\d{2}$")){
+                    Error("Телефон должен быть введён в формате: 8(***)***-**-**");
                 }
-                else
-                    Error("Пользователь с таким номером телефона уже существует");
+                else{
+                    client = new RegisterClient();
+                    client.setSurName(tSurName.getText().trim());
+                    client.setName(tName.getText().trim());
+                    client.setPatronym(tPatronym.getText().trim());
+                    client.setPhone(tPhone.getText().trim());
+                    client.setPassword(new BCryptPasswordEncoder().encode(tPass1.getText().trim()));
+                    if(tryCreateUser()){
+                        Success("Пользователь успешно зарегистрирован");
+                        action=true;
+                        registryStage.close();
+                    }
+                    else
+                        Error("Пользователь с таким номером телефона уже существует");
+                }
             }
         }
     }

@@ -45,9 +45,9 @@ public class AutomobileDao implements Dao<Automobile, Long> {
         return parseJsonToListAutomobiles();
     }
 
-    public Collection<Automobile> findALlCarsOfOwner(Long id) {
+    public Collection<Automobile> findALlCarsOfOwner(String phone) {
         try {
-            url = new URL("http://127.0.0.1:8080/api/automobiles/owner/"+id);
+            url = new URL("http://127.0.0.1:8080/api/automobiles/owner/"+phone);
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");

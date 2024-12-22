@@ -19,6 +19,8 @@ import ru.kafpin.lr6_bzz.domains.Service;
 
 import java.util.Date;
 
+import static ru.kafpin.lr6_bzz.MainApplication.login;
+
 public class ClientController {
     @Setter
     private Stage clientStage;
@@ -76,7 +78,7 @@ public class ClientController {
         tvServices.getSortOrder().add(tcName);
         tvServices.getSortOrder().add(tcPrice);
 
-        automobilesOfClient.addAll(automobileDao.findALlCarsOfOwner(1L));
+        automobilesOfClient.addAll(automobileDao.findALlCarsOfOwner(login));
         cbAutomobile.setItems(automobilesOfClient);
 
         tcNameOfProvided.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getService().getName()));

@@ -65,7 +65,7 @@ public class EditProvidedServiceController {
     @FXML
     void update(){
         cbClient.getSelectionModel().select(providedService.getAutomobile().getClient());
-        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
+        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getPhone()));
         cbAutomobile.setItems(automobiles);
         cbAutomobile.getSelectionModel().select(providedService.getAutomobile());
         cbService.getSelectionModel().select(providedService.getService());
@@ -76,7 +76,7 @@ public class EditProvidedServiceController {
     void onClientchanged(ActionEvent event) {
         automobiles.clear();
         cbAutomobile.setItems(automobiles);
-        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getId()));
+        automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClient.getSelectionModel().getSelectedItem().getPhone()));
     }
     @FXML
     void onCancel(ActionEvent event) {
