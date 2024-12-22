@@ -7,6 +7,7 @@ module ru.kafpin.lr6_bzz {
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires spring.security.crypto;
 
 
     opens ru.kafpin.lr6_bzz.domains to com.fasterxml.jackson.databind,org.json;

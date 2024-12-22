@@ -3,7 +3,9 @@ package ru.kafpin.lr6_bzz.dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.domains.Automobile;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +18,10 @@ import java.util.*;
 
 @NoArgsConstructor
 public class AutomobileDao implements Dao<Automobile, Long> {
+
+    @Setter
+    private String encodedAuth;
+
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();
     private HttpURLConnection conn;
@@ -27,6 +33,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -45,6 +52,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -66,6 +74,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -84,6 +93,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -100,6 +110,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = " + conn.getResponseCode());
             }
@@ -116,6 +127,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -133,6 +145,7 @@ public class AutomobileDao implements Dao<Automobile, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;

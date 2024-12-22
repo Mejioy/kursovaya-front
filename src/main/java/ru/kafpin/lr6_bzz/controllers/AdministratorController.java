@@ -29,6 +29,10 @@ import java.util.ResourceBundle;
 public class AdministratorController {
     @Setter
     private Stage administratorStage;
+
+    @Setter
+    private String encodedAuth;
+
     private final ServiceDao serviceDao;
     private final EmployerDao employerDao;
     @FXML
@@ -60,6 +64,9 @@ public class AdministratorController {
     private ResourceBundle bundle = ResourceBundle.getBundle("administrator",Locale.getDefault());
     @FXML
     void initialize() {
+        serviceDao.setEncodedAuth(encodedAuth);
+        employerDao.setEncodedAuth(encodedAuth);
+
         services.addAll(serviceDao.findALl());
         tcName.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getName()));
         tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getPrice()));

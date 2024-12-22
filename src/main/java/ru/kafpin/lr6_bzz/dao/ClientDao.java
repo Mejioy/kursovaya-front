@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.domains.Client;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,6 +14,10 @@ import java.util.*;
 
 @NoArgsConstructor
 public class ClientDao implements Dao<Client, Long> {
+
+    @Setter
+    private String encodedAuth;
+
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();
     private HttpURLConnection conn;
@@ -23,6 +28,7 @@ public class ClientDao implements Dao<Client, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -66,6 +72,7 @@ public class ClientDao implements Dao<Client, Long> {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -84,6 +91,7 @@ public class ClientDao implements Dao<Client, Long> {
             conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -116,6 +124,7 @@ public class ClientDao implements Dao<Client, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -134,6 +143,7 @@ public class ClientDao implements Dao<Client, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;

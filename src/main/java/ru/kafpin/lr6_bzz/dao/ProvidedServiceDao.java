@@ -5,23 +5,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.NoArgsConstructor;
-import ru.kafpin.lr6_bzz.domains.Automobile;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.domains.ProvidedService;
-import ru.kafpin.lr6_bzz.utils.DBHelper;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.*;
 
 @NoArgsConstructor
 public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
+
+    @Setter
+    private String encodedAuth;
+
     private URL url;
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -34,6 +33,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -51,6 +51,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -68,6 +69,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
@@ -89,6 +91,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -107,6 +110,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {
@@ -123,6 +127,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("DELETE");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = " + conn.getResponseCode());
             }
@@ -139,6 +144,7 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;

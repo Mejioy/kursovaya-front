@@ -4,33 +4,25 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ru.kafpin.lr6_bzz.utils.DBHelper;
+import lombok.Getter;
+
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 public class MainApplication extends Application {
+    @Getter
     private static Stage mainStage;
-    public static Stage getMainStage() {
-        return mainStage;
-    }
-    public static Connection getConnection(){
-        return connection;
-    }
+
+    @Getter
     private static Connection connection;
     private static ResourceBundle bundle;
     @Override
     public void start(Stage stage) throws IOException {
-        try{
-            connection = DBHelper.getConnection();
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("authorization-view.fxml"),bundle);
         Scene scene = new Scene(fxmlLoader.load(), 350 , 180);
+        stage.setResizable(false);
         stage.setMinWidth(350);
         stage.setMinHeight(180);
         stage.setTitle(bundle.getString("title"));

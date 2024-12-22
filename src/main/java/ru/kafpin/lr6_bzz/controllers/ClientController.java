@@ -22,6 +22,8 @@ import java.util.Date;
 public class ClientController {
     @Setter
     private Stage clientStage;
+    @Setter
+    private String encodedAuth;
 
     @FXML
     private TableColumn<Service, String> tcDescription;
@@ -67,6 +69,11 @@ public class ClientController {
 
     @FXML
     void initialize() {
+        serviceDao.setEncodedAuth(encodedAuth);
+        providedServiceDao.setEncodedAuth(encodedAuth);
+        automobileDao.setEncodedAuth(encodedAuth);
+
+
         services.addAll(serviceDao.findALl());
         tcName.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getName()));
         tcPrice.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getPrice()));

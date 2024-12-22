@@ -57,13 +57,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
-                     <buttons>
-                        <Button mnemonicParsing="false" onAction="#onAddClient" text="%add" />
-                        <Button mnemonicParsing="false" onAction="#onEditClient" text="%edit" />
-                        <Button mnemonicParsing="false" onAction="#onRemoveClient" text="%del" />
-                     </buttons>
-                  </ButtonBar>
+                  <ButtonBar maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                </children>
             </AnchorPane>
          </content>

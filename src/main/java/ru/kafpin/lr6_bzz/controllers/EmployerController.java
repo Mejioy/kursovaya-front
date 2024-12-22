@@ -25,6 +25,9 @@ public class EmployerController {
     @Setter
     private Stage employerStage;
 
+    @Setter
+    private String encodedAuth;
+
     private final AutomobileDao automobileDao;
     private final ClientDao clientDao;
     private final EmployerDao employerDao;
@@ -91,6 +94,12 @@ public class EmployerController {
     LocalDate localDateto = LocalDate.now();
     @FXML
     void initialize() {
+        automobileDao.setEncodedAuth(encodedAuth);
+        clientDao.setEncodedAuth(encodedAuth);
+        employerDao.setEncodedAuth(encodedAuth);
+        providedServiceDao.setEncodedAuth(encodedAuth);
+        serviceDao.setEncodedAuth(encodedAuth);
+
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
         providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
@@ -151,22 +160,22 @@ public class EmployerController {
         else
             Error(bundle.getString("clientnotchoicedforautoadd"));
     }
-    @FXML
-    void onAddClient(ActionEvent event) {
-        Client client = new Client();
-        if(showClientDialog(client)){
-            Client existsClient = clientDao.findByPhone(client.getPhone());
-            if(existsClient!=null){
-                Error("Невозможно создать клиента с указанным номером телефона, т.к. номер занят другим клиентом");
-            }
-            else{
-                clientDao.save(client);
-                clients.clear();
-                clients.addAll(clientDao.findALl());
-                tvClients.sort();
-            }
-        }
-    }
+//    @FXML
+//    void onAddClient(ActionEvent event) {
+//        Client client = new Client();
+//        if(showClientDialog(client)){
+//            Client existsClient = clientDao.findByPhone(client.getPhone());
+//            if(existsClient!=null){
+//                Error("Невозможно создать клиента с указанным номером телефона, т.к. номер занят другим клиентом");
+//            }
+//            else{
+//                clientDao.save(client);
+//                clients.clear();
+//                clients.addAll(clientDao.findALl());
+//                tvClients.sort();
+//            }
+//        }
+//    }
     @FXML
     void onAddProvidedService(ActionEvent event) {
         ProvidedService providedService = new ProvidedService();
@@ -201,26 +210,26 @@ public class EmployerController {
         else
             Error(bundle.getString("clientnotchoicedforautoupd"));
     }
-    @FXML
-    void onEditClient(ActionEvent event) {
-        Client client = tvClients.getSelectionModel().getSelectedItem();
-        if (client != null){
-            if(showClientDialog(client)){
-                Client existsClient = clientDao.findByPhone(client.getPhone());
-                if(existsClient!=null && !Objects.equals(existsClient.getId(), client.getId())){
-                    Error("Невозможно изменить номер выбранного клиента, т.к. введённый номер занят другим клиентом");
-                }
-                else{
-                    clientDao.update(client);
-                }
-                clients.clear();
-                clients.addAll(clientDao.findALl());
-                tvClients.sort();
-            }
-        }
-        else
-            Error(bundle.getString("clientnotchoicedup"));
-    }
+//    @FXML
+//    void onEditClient(ActionEvent event) {
+//        Client client = tvClients.getSelectionModel().getSelectedItem();
+//        if (client != null){
+//            if(showClientDialog(client)){
+//                Client existsClient = clientDao.findByPhone(client.getPhone());
+//                if(existsClient!=null && !Objects.equals(existsClient.getId(), client.getId())){
+//                    Error("Невозможно изменить номер выбранного клиента, т.к. введённый номер занят другим клиентом");
+//                }
+//                else{
+//                    clientDao.update(client);
+//                }
+//                clients.clear();
+//                clients.addAll(clientDao.findALl());
+//                tvClients.sort();
+//            }
+//        }
+//        else
+//            Error(bundle.getString("clientnotchoicedup"));
+//    }
     @FXML
     void onEditProvidedService(ActionEvent event) {
         ProvidedService providedService = tvProvidedServices.getSelectionModel().getSelectedItem();
@@ -254,21 +263,21 @@ public class EmployerController {
         else
             Error(bundle.getString("clientnotchoicedforautodel"));
     }
-    @FXML
-    void onRemoveClient(ActionEvent event) {
-        Client client = tvClients.getSelectionModel().getSelectedItem();
-        if(client!=null){
-            if(showRemoveDialog("client")){
-                tvClients.getItems().remove(tvClients.getSelectionModel().getSelectedIndex());
-                clientDao.deleteById(client.getId());
-                tvClients.sort();
-                providedServices.clear();
-                providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
-            }
-        }
-        else
-            Error(bundle.getString("clientnotchoicedfordel"));
-    }
+//    @FXML
+//    void onRemoveClient(ActionEvent event) {
+//        Client client = tvClients.getSelectionModel().getSelectedItem();
+//        if(client!=null){
+//            if(showRemoveDialog("client")){
+//                tvClients.getItems().remove(tvClients.getSelectionModel().getSelectedIndex());
+//                clientDao.deleteById(client.getId());
+//                tvClients.sort();
+//                providedServices.clear();
+//                providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
+//            }
+//        }
+//        else
+//            Error(bundle.getString("clientnotchoicedfordel"));
+//    }
     @FXML
     void onRemoveProvidedService(ActionEvent event) {
         ProvidedService providedService = tvProvidedServices.getSelectionModel().getSelectedItem();
@@ -293,6 +302,7 @@ public class EmployerController {
             addStage.initModality(Modality.APPLICATION_MODAL);
             addStage.initOwner(MainApplication.getMainStage());
             EditProvidedServiceController editProvidedServiceController = loader.getController();
+            editProvidedServiceController.setEncodedAuth(encodedAuth);
             editProvidedServiceController.setProvidedService(providedService);
             editProvidedServiceController.setEditStage(addStage);
             editProvidedServiceController.setBundle(bundle);
@@ -309,27 +319,27 @@ public class EmployerController {
             return false;
         }
     }
-    private boolean showClientDialog(Client client) {
-        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("client-addEdit.fxml"),bundle);
-        try {
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage addStage = new Stage();
-            addStage.setTitle(bundle.getString("clientinfo"));
-            addStage.setScene(scene);
-            addStage.initModality(Modality.APPLICATION_MODAL);
-            addStage.initOwner(MainApplication.getMainStage());
-            EditClientController editClientController = loader.getController();
-            editClientController.setClient(client);
-            editClientController.setEditStage(addStage);
-            editClientController.setBundle(bundle);
-            addStage.showAndWait();
-            return editClientController.isAction();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+//    private boolean showClientDialog(Client client) {
+//        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("registry-view.fxml"),bundle);
+//        try {
+//            Parent root = loader.load();
+//            Scene scene = new Scene(root);
+//            Stage addStage = new Stage();
+//            addStage.setTitle(bundle.getString("clientinfo"));
+//            addStage.setScene(scene);
+//            addStage.initModality(Modality.APPLICATION_MODAL);
+//            addStage.initOwner(MainApplication.getMainStage());
+//            RegistryController editClientController = loader.getController();
+//            editClientController.setClient(client);
+//            editClientController.setEditStage(addStage);
+//            editClientController.setBundle(bundle);
+//            addStage.showAndWait();
+//            return editClientController.isAction();
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//            return false;
+//        }
+//    }
     private boolean showAutomobileDialog(Automobile automobile) {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("automobile-addEdit.fxml"),bundle);
         try {

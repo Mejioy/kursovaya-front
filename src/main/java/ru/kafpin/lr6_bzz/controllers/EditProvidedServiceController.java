@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.Data;
+import lombok.Setter;
 import ru.kafpin.lr6_bzz.dao.AutomobileDao;
 import ru.kafpin.lr6_bzz.dao.ClientDao;
 import ru.kafpin.lr6_bzz.dao.EmployerDao;
@@ -16,6 +17,10 @@ import java.util.ResourceBundle;
 
 @Data
 public class EditProvidedServiceController {
+
+    @Setter
+    private String encodedAuth;
+
     private ProvidedService providedService;
     private ResourceBundle bundle;
     private boolean action=false;
@@ -45,9 +50,13 @@ public class EditProvidedServiceController {
     void initialize(){
         try {
             clientDao = new ClientDao();
+            clientDao.setEncodedAuth(encodedAuth);
             serviceDao = new ServiceDao();
+            serviceDao.setEncodedAuth(encodedAuth);
             employerDao = new EmployerDao();
+            employerDao.setEncodedAuth(encodedAuth);
             automobileDao = new AutomobileDao();
+            automobileDao.setEncodedAuth(encodedAuth);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
