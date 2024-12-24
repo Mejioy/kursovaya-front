@@ -141,11 +141,18 @@ public class ServiceDao implements Dao<Service, Long> {
 
     public Service findByName(String name) {
         try {
-            url = new URL("http://127.0.0.1:8080/api/services/name/"+name);
+            url = new URL("http://127.0.0.1:8080/api/services/name");
             conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("Accept", "application/json");
             conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
+            conn.setRequestProperty("Content-Type", "application/text");
+            conn.setDoOutput(true);
+            try(OutputStream os = conn.getOutputStream()) {
+                byte[] input = name.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+            System.out.println(name);
             if(200 != conn.getResponseCode()){
                 System.out.printf("Response code = "+conn.getResponseCode());
                 return null;
