@@ -109,7 +109,7 @@ public class EmployerController {
 
         clients.addAll(clientDao.findALl());
         tcFIO.setCellValueFactory(s -> new SimpleStringProperty(
-            s.getValue().toString()));
+            s.getValue().getFio()));
         tcPhone.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getPhone()));
         tvClients.setItems(clients);
         tvClients.getSortOrder().add(tcFIO);

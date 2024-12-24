@@ -19,6 +19,10 @@ public class Client  {
 
     @Override
     public String toString() {
+        return getSurName() + ' ' + getName() + ' ' + getPatronym() + ' ' + getPhone();
+    }
+
+    public String getFio(){
         return getSurName() + ' ' + getName() + ' ' + getPatronym();
     }
 }

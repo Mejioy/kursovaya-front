@@ -198,7 +198,7 @@ public class AdministratorController {
             if(showServiceDialog(service)){
                 Service existsService = serviceDao.findByName(service.getName());
                 if(existsService!=null&& !Objects.equals(existsService.getId(), service.getId())){
-                    Error("Невозможно изменить название выбранного сотрудника, т.к. введённое название соответствует названию другой услуги");
+                    Error("Невозможно изменить название выбранной услуги, т.к. введённое название соответствует названию другой услуги");
                 }
                 else{
                     serviceDao.update(service);

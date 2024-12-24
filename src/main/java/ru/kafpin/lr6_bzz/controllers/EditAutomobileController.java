@@ -50,11 +50,16 @@ public class EditAutomobileController {
             Error(bundle.getString("gosnumberfieldempty"));
         else
         {
-            automobile.setMark(tMark.getText().trim());
-            automobile.setModel(tModel.getText().trim());
-            automobile.setGosnumber(tGosnumber.getText().trim());
-            action=true;
-            editStage.close();
+            if(!tGosnumber.getText().matches("^[ABEKMHOPCTYX]\\d{3}(?<!000)[ABEKMHOPCTYX]{2}\\d{2,3}rus$")){
+                Error("Гос.номер должен быть введён в формате: A777AA33rus");
+            }
+            else{
+                automobile.setMark(tMark.getText().trim());
+                automobile.setModel(tModel.getText().trim());
+                automobile.setGosnumber(tGosnumber.getText().trim());
+                action=true;
+                editStage.close();
+            }
         }
     }
 }

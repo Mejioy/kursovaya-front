@@ -13,12 +13,13 @@ public class Service {
     private String name;
     private int price;
     private String description;
+    private boolean status;
 
-    public Service(long id, String name, int price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-    }
+//    public Service(long id, String name, int price) {
+//        this.id = id;
+//        this.name = name;
+//        this.price = price;
+//    }
 
     public void setNullDescription(){
         this.description = null;
