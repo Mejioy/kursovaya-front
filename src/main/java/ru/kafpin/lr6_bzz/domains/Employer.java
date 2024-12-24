@@ -1,14 +1,10 @@
 package ru.kafpin.lr6_bzz.domains;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Employer {
 
     private Long id;
@@ -20,20 +16,14 @@ public class Employer {
     private String street;
     private int house;
     private Integer appartment;
+    private boolean status;
 
-    public Employer(long id, String surName, String name, String patronym, String phone,  String city, String street, int house) {
-        this.id = id;
-        this.name = name;
-        this.surName = surName;
-        this.patronym = patronym;
-        this.phone = phone;
-        this.city = city;
-        this.street = street;
-        this.house = house;
+    @Override
+    public String toString() {
+        return getSurName() + ' ' + getName() + ' ' + getPatronym() + ' ' + getPhone();
     }
 
-        @Override
-    public String toString() {
+    public String getFio(){
         return getSurName() + ' ' + getName() + ' ' + getPatronym();
     }
 

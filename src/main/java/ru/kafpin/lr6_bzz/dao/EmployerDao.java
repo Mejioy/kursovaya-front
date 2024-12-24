@@ -91,6 +91,7 @@ public class EmployerDao implements Dao<Employer, Long>{
             conn.setRequestMethod("PUT");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
             conn.setDoOutput(true);
         }
         catch (IOException e) {

@@ -70,9 +70,7 @@ public class AdministratorController {
         tvServices.getSortOrder().add(tcPrice);
         employers.addAll(employerDao.findALl());
         tcFIO.setCellValueFactory(s -> new SimpleStringProperty(
-            s.getValue().getSurName() + ' ' +
-               s.getValue().getName() + ' ' +
-               s.getValue().getPatronym())
+            s.getValue().getFio())
         );
         tcPhone.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getPhone()));
         tcAddress.setCellValueFactory(s ->{
