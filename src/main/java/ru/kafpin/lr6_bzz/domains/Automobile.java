@@ -16,6 +16,7 @@ public class Automobile {
     private String model;
     private String gosnumber;
     private Client client;
+    private boolean status;
 
     @Override
     public String toString() {

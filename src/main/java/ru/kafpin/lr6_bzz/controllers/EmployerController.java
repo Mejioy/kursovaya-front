@@ -146,7 +146,7 @@ public class EmployerController {
                 else{
                     automobileDao.save(automobile);
                     automobiles.clear();
-                    automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
+                    automobiles.addAll(automobileDao.findALlActualCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
                     tvAutomobiles.sort();
                 }
             }
@@ -194,7 +194,7 @@ public class EmployerController {
                         automobileDao.update(automobile);
                     }
                     automobiles.clear();
-                    automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
+                    automobiles.addAll(automobileDao.findALlActualCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
                     tvAutomobiles.sort();
                 }
             }
@@ -358,7 +358,7 @@ public class EmployerController {
     void onClientSwitched(ActionEvent event) {
         if(cbClients.getSelectionModel().getSelectedItem()!=null){
             automobiles.clear();
-            automobiles.addAll(automobileDao.findALlCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
+            automobiles.addAll(automobileDao.findALlActualCarsOfOwner(cbClients.getSelectionModel().getSelectedItem().getPhone()));
             tcMark.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getMark()));
             tcModel.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getModel()));
             tcGosnumber.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getGosnumber()));

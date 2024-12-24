@@ -83,7 +83,7 @@ public class ClientController {
 
         tcNameOfProvided.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getService().getName()));
         tcPriceOfProvided.setCellValueFactory(s -> new SimpleObjectProperty<Integer>(s.getValue().getService().getPrice()));
-        tcEmployerFIO.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getEmployer().toString()));
+        tcEmployerFIO.setCellValueFactory(s -> new SimpleStringProperty(s.getValue().getEmployer().getFio()));
         tcDatetime.setCellValueFactory(s -> new SimpleObjectProperty<Date>(s.getValue().getSqlDate()));
         tvProvidedServices.setItems(providedServices);
     }
