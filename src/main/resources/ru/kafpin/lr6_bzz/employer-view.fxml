@@ -20,9 +20,9 @@
                   <TableView fx:id="tvProvidedServices" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <columns>
                       <TableColumn fx:id="tcName" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="275.0" text="%name" />
-                      <TableColumn fx:id="tcClientFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%clientfio" />
+                      <TableColumn fx:id="tcClientFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="Клиент" />
                         <TableColumn fx:id="tcAutomobile" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="150.0" text="%automobile" />
-                        <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="%employerfio" />
+                        <TableColumn fx:id="tcEmployerFIO" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="250.0" text="Сотрудник" />
                         <TableColumn fx:id="tcPrice" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="100.0" text="%price" />
                         <TableColumn fx:id="tcDatetime" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="120.0" text="%datetime" />
                     </columns>
@@ -32,6 +32,7 @@
                   </TableView>
                   <ButtonBar buttonMinWidth="20.0" maxHeight="40.0" prefHeight="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                     <buttons>
+                        <Button maxWidth="220.0" minWidth="70.0" mnemonicParsing="false" onAction="#onSendReport" prefWidth="70.0" text="Получить отчёт на email" />
                         <Label maxHeight="18.0" maxWidth="18.0" minWidth="18.0" prefHeight="18.0" text="%from" />
                         <DatePicker fx:id="dpFrom" minWidth="70.0" onAction="#onDataChanged" prefWidth="250.0" />
                         <Label maxWidth="18.0" minWidth="18.0" prefHeight="18.0" text="%to" />

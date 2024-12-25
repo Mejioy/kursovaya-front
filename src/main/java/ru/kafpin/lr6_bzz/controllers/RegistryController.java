@@ -64,7 +64,7 @@ public class RegistryController {
     private void Success(String text){
         Alert alert;
         alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(bundle.getString("error"));
+        alert.setTitle("Успешно");
         alert.setContentText(null);
         alert.setHeaderText(text);
         alert.showAndWait();

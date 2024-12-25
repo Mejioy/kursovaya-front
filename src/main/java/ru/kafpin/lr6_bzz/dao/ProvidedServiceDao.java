@@ -154,6 +154,38 @@ public class ProvidedServiceDao implements Dao<ProvidedService, Long> {
         }
         return parseJsonToSingleProvidedService();
     }
+
+    public boolean sendReportToEmail(LocalDate from, LocalDate to) {
+        try {
+            url = new URL("http://127.0.0.1:8080/api/write/from="+from+"to="+to);
+            conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Authorization", "Basic " + encodedAuth);
+            conn.setDoOutput(true);
+            if(200 != conn.getResponseCode()){
+                System.out.printf("Response code = "+conn.getResponseCode());
+                return false;
+            }
+        }
+        catch (IOException e) {
+            System.out.println("URL/Connection error");
+        }
+        StringBuilder response = new StringBuilder();
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))){
+            String responseLine;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine);
+                response.append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("bufferReader error");
+        }
+
+        System.out.println(response);
+
+        return response.toString().trim().equals("PDF sent successfully");
+    }
+
     private void writeResponseToJson(String json){
         try(OutputStream os = conn.getOutputStream()) {
             byte[] input = json.getBytes(StandardCharsets.UTF_8);

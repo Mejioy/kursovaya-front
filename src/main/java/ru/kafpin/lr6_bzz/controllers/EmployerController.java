@@ -92,8 +92,6 @@ public class EmployerController {
     LocalDate localDateto = LocalDate.now();
     @FXML
     void initialize() {
-
-
         dpFrom.setValue(localDatefrom);
         dpTo.setValue(localDateto);
         providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
@@ -120,6 +118,10 @@ public class EmployerController {
     void onDataChanged(ActionEvent event) {
         localDatefrom = dpFrom.getValue();
         localDateto = dpTo.getValue();
+
+        System.out.println(localDatefrom);
+        System.out.println(localDateto);
+
         providedServices.clear();
         providedServices.addAll(providedServiceDao.findALlFromTo(localDatefrom,localDateto));
         tvProvidedServices.setItems(providedServices);
@@ -129,6 +131,22 @@ public class EmployerController {
         Alert alert;
         alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(bundle.getString("error"));
+        alert.setContentText(null);
+        alert.setHeaderText(text);
+        alert.showAndWait();
+    }
+    private void Warning(String text){
+        Alert alert;
+        alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Предупреждение");
+        alert.setContentText(null);
+        alert.setHeaderText(text);
+        alert.showAndWait();
+    }
+    private void Success(String text){
+        Alert alert;
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Успешно");
         alert.setContentText(null);
         alert.setHeaderText(text);
         alert.showAndWait();
@@ -154,6 +172,16 @@ public class EmployerController {
         else
             Error(bundle.getString("clientnotchoicedforautoadd"));
     }
+
+    @FXML
+    void onSendReport(ActionEvent event) {
+        if(providedServiceDao.sendReportToEmail(localDatefrom,localDateto)){
+            Success("Отчёт успешно отправлен");
+        }
+        else
+            Warning("Отчёт не был отправлен");
+    }
+
 //    @FXML
 //    void onAddClient(ActionEvent event) {
 //        Client client = new Client();
